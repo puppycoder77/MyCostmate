@@ -1,0 +1,364 @@
+﻿@font-face {
+    font-family: 'fradmcn';
+    src: url('/fonts/fradmcn.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'kalinga';
+    src: url('/fonts/kalinga.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'puppyAgentCm';
+    src: url('/fonts/AgentConMen.ttf') format('truetype');
+}
+.postApprovalDiv {
+    background-color: #b9e1af;
+    padding: 10px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.postApprovalDiv span{
+    cursor:pointer;
+    font-weight:bold;
+}
+
+.time-posted {
+    font-size: 12px;
+    color: #ccc;
+    font-style: italic;
+}
+
+#cantDisplayItem {
+    margin-top: 5%;
+    color: #999;
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    font-family: puppyAgentCm;
+    font-weight: normal;
+}
+
+/*SLIDERS ZONE*/
+.carousel-indicator.active {
+    width: 20px !important;
+    background-color: orange !important;
+}
+/*END OF SLIDERS ZONE*/
+
+.firstItem {
+    background-color: #fff;
+    padding-bottom: 5px;
+    margin-bottom: 30px;
+}
+
+.main-img {
+    width: 100%;
+    max-height: 350px;
+    min-height: 350px;
+}
+
+.categories {
+    /*margin-top:20px;*/
+    margin-top: 20px;
+}
+
+    .categories h5 {
+        margin-bottom: 0;
+        background-color: #e4e4e4;
+        padding: 10px;
+        font-weight: bold;
+        color: #666;
+    }
+
+h4#snd-msg-title {
+    color: #333;
+}
+
+.detail h5 {
+    /*font-family: fradmcn;*/
+    font-family: puppyAgentCm;
+    font-size: 32px;
+    color: #333;
+}
+
+h5.other-header {
+    font-size: 20px !important;
+}
+
+.ownerPhoto {
+    width: 50px;
+    height: 50px;
+    float: left;
+    margin-right: 10px;
+}
+
+.photoDummy {
+    background: #666;
+    padding-top: 10px;
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+#postedAndRegDate, #nameSpan {
+    font-family: kalinga;
+}
+
+#postedAndRegDate {
+    /*padding-right: 35%;*/
+    margin-bottom: 20px;
+    color: #888;
+    font-size: 13px;
+}
+
+    #postedAndRegDate .glyphicon-user {
+        font-size: 16px !important;
+    }
+
+#reg-since {
+    color: #999;
+    font-style: italic;
+}
+
+#nameSpan {
+    font-weight: bold;
+    width: 60%;
+}
+
+.poster-details {
+    margin-top: 10px;
+}
+
+#categories p.list-group-item a {
+    /*color: #009933 !important;*/
+    color: #3d7c53 !important;
+    /*font-weight:bold;*/
+    cursor: pointer;
+}
+
+.item-dtl-descAndCat {
+    line-height: 21px;
+    padding: 20px;
+    font-family: kalinga;
+}
+
+.desc {
+    font-size: 13px;
+    font-family: kalinga;
+    color: #666;
+}
+
+.CatAndLocation {
+    display: block;
+    height: 15px;
+    margin-top: 15px !important;
+    /*margin-top: 10px;*/
+    /*padding-bottom: 10px;*/
+}
+
+    .CatAndLocation a {
+        color: #339966;
+        font-size: 12px;
+        cursor: pointer;
+        background: #eeefee;
+        padding: 3px 8px;
+        margin-right: 2px;
+    }
+
+.noitem {
+    background-color: #cfe8e0;
+    padding: 20px
+}
+
+#user-phone-num {
+    clear: both;
+    display: block;
+    /*background-color: #67bcdb;*/
+    background-color: #adc0c7;
+    color: #fff;
+    text-align: center;
+    font-size: 18px;
+    padding: 5px 0;
+}
+
+.contact-form .form-control {
+    margin-bottom: 16px;
+}
+
+h4#snd-msg-title {
+    text-align: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color: #999;
+    font-size: 15px;
+    font-family: kalinga !important;
+}
+
+.other-item-list {
+    background-color: #fff;
+    /*padding-bottom:15px;*/
+    margin-right: 1px;
+    margin-left: 1px;
+    margin-bottom: 10px;
+}
+
+    .other-item-list .short-desc {
+        font-size: 13px;
+        margin-bottom: 5px;
+        font-family: Kalinga;
+        color: #666;
+        height: 40px;
+        overflow: hidden;
+    }
+
+    .other-item-list a.title {
+        display: block;
+        margin-bottom: 4px;
+        font-size: 13px;
+        font-weight: bold;
+        color: #4c925e !important;
+        cursor: pointer;
+    }
+
+.titleDescAndcat {
+    /*padding-right: 5px;*/
+    padding-left: 15px;
+    padding-top: 6px;
+}
+
+.other-item-list .CatAndLocation {
+    text-transform: capitalize;
+    height: 5px !important;
+    margin-top: 0px !important;
+}
+
+.other-item-list img {
+    /*min-height: 90px;*/
+    min-height: 100px;
+}
+
+.social-share-icons {
+    height: auto;
+    overflow: hidden;
+    /*margin-bottom: 20px;*/
+    padding-left: 20px;
+}
+
+.list-inline li {
+    cursor: pointer;
+}
+
+#relLinks-for-small-screen {
+    display: none;
+}
+
+#poster-details-for-small-screen {
+    display: none;
+}
+
+.fa-2x {
+    font-size: 1.5em !important;
+    color: #888;
+}
+
+.small-screen-contact {
+    background-color: #e8e8e8;
+    margin: 0;
+    /*margin-top: -10px !important;*/
+    border: 1px solid #ccc;
+}
+
+@media (max-width: 768px) {
+
+    .innerDivWrapper {
+        margin-top:-20px;
+    }
+
+    .other-item-list a.title {
+       height:38px;
+       overflow:hidden;
+    }
+
+    #cantDisplayItem {
+      
+        font-size: 22px;
+        font-weight: normal;
+    }
+
+    .firstItem {
+         padding-bottom: 0; 
+    }
+
+    .small-screen-wrapper {
+        padding-right: 0;
+        padding-left: 0;
+    }
+
+    .small-screen-contact {
+        margin-bottom: 40px;
+    }
+
+        #postedAndRegDate {
+        margin-bottom: 5px;
+    }
+    
+    .ownerPhoto {
+        width: 35px;
+        height: 35px;
+    }
+
+    h4#snd-msg-title {
+        text-align: center;
+        padding-top: 10px;
+        padding-bottom: 5px;
+        font-size: 14px;
+    }
+
+    .other-item-list {
+        /*margin-bottom: 30px;*/
+        padding-bottom: 20px;
+    }
+
+        .other-item-list img {
+            width: 40%;
+            float: left;
+            margin-right: 10px;
+            margin-top: 10px;
+            margin-left: 10px;
+        }
+
+    .detail h5 {
+        font-size: 24px;
+    }
+
+    .main-img {
+        max-height: 250px;
+        min-height: 250px;
+    }
+
+    #relLinks-for-big-screen {
+        display: none;
+    }
+
+    #relLinks-for-small-screen {
+        display: block;
+        margin-top: 24px;
+    }
+
+    #poster-details-for-small-screen {
+        display: block;
+        margin-bottom: 20px;
+    }
+
+        #poster-details-for-small-screen form {
+            padding-bottom: 10px;
+        }
+
+    #poster-details-for-big-screen {
+        display: none;
+    }
+
+    .fa-2x {
+        font-size: 1.2em !important;
+    }
+}

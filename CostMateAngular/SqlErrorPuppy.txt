@@ -1,0 +1,1 @@
+﻿SqlException: The conversion of a datetime2 data type to a datetime data type resulted in an out-of-range value.

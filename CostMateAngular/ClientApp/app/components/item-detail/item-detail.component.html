@@ -1,0 +1,303 @@
+﻿<div class="row"  *ngIf="mateItemWithRelObjs">
+    <!--mateItemWithRelObjs && postNotYetApproved && !postIsFromCurrentUser && !isCurrentUserAnAdmin-->
+
+    <!--/////////// BEGINNING OF POST APPROVAL/DISAPPROVAL AND WARNING INFO //////////-->
+    <div *ngIf="isCurrentUserAnAdmin && postNotYetApproved" class="postApprovalDiv">
+        <h4>Admin Setting for Post Approval</h4>
+        <span (click)="ApprovePost()"><i class="fa fa-check-circle"></i> Approve</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <!-- Thinking about implementing delete from this page -->
+        <span (click)="AdminDeletePost()"><i class="fa fa-trash-o"></i> Delete</span>
+    </div>
+
+    <div *ngIf="isCurrentUserAnAdmin && !postNotYetApproved" class="postApprovalDiv">
+        <p>Admin Setting for Post Disapproval</p>
+        <span (click)="DisapprovePost()"><i class="fa fa-minus-circle"></i> Disapprove</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <!-- Thinking about implementing delete from this page -->
+        <span (click)="AdminDeletePost()"><i class="fa fa-trash-o"></i> Delete</span>
+    </div>
+
+    <div *ngIf="(isCurrentUserAnAdmin || postIsFromCurrentUser) && postNotYetApproved" class="postApprovalDiv">
+        <h4>Post visibility hidden to others</h4>
+        <p>This post is visible only to you, until it's approved.</p>
+    </div>
+    <!--/////////// END OF BEGINNING OF POST APPROVAL/DISAPPROVAL AND WARNING INFO //////////-->
+
+    <div class="wrapper-for-visibility-control" *ngIf="!postNotYetApproved || (postNotYetApproved && (isCurrentUserAnAdmin || postIsFromCurrentUser))">
+        <div class="col-md-2 col-sm-12 innerDivWrapper" id="relLinks-for-big-screen">
+            <section class="inner categories">
+                <h5>RELATED LINKS</h5>
+                <div class="list-group" id="categories">
+                    <p class="list-group-item"><a [routerLink]="['/state',currentState,currentCategory]">{{currentCategoryFirstUpper}}</a></p>
+                    <p class="list-group-item"><a [routerLink]="['/state',currentState]">{{currentStateFirstUpper}}</a></p>
+                </div>
+            </section>
+        </div>
+
+        <div class="col-md-6 col-sm-12 innerDivWrapper">
+            <section class="inner detail" style="width:100%;height:auto;">
+                <h5>{{itemTitle}}</h5>
+                <div class="row" id="detailed-item">
+                    <div class="col-lg-12">
+                        <article class="firstItem">
+                            <!--<img *ngIf="firstImage" class="img-responsive main-img" src="/Uploads/{{firstImage}}" />-->
+                            <!-- TESTING SLIDES -->
+                            <carousel>
+                                <slide *ngFor="let image of allImage">
+                                    <!--<img src="assets/images/nature/1.jpg" alt="First slide" style="display: block; width: 100%;">-->
+                                    <img *ngIf="firstImage" class="img-responsive main-img" src="/Uploads/{{image.filename}}" />
+                                </slide>
+                            </carousel>
+                            <!-- END OF TESTING SLIDES -->
+
+                            <p class="item-dtl-descAndCat">
+                                <span class="desc">
+                                    {{itemDescription}}
+                                </span>
+                                <span class="CatAndLocation">
+                                    <a [routerLink]="['/state',currentState,currentCategory]">{{currentCategoryFirstUpper}}</a> <a [routerLink]="['/state',currentState]">{{currentStateFirstUpper}}</a>
+                                    <span class="pull-right time-posted"><i class="fa fa-clock-o"></i> {{itemDate | timeAgo}}</span>
+                                </span>
+                            </p>
+
+
+                            <div class="social-share-icons">
+                                <ul class="list-inline pull-left" style="margin-right:60px;">
+                                    <!--<li><span class="fa fa-facebook-f fa-2x"></span></li>
+                                    <li><span class="fa fa-twitter fa-2x"></span></li>
+                                    <li><span class="fa fa-whatsapp fa-2x"></span></li>
+                                    <li><span class="fa fa-pinterest fa-2x"></span></li>-->
+                                    <li><span shareButton="facebook" class="fa fa-facebook-f fa-2x"></span></li>
+                                    <li><span shareButton="twitter" class="fa fa-twitter fa-2x"></span></li>
+                                    <li><span shareButton="whatsapp" class="fa fa-whatsapp fa-2x"></span></li>
+                                    <li><span shareButton="pinterest" class="fa fa-pinterest fa-2x"></span></li>
+                                </ul>
+
+                                <ul class="list-inline  pull-left">
+                                    <li><span class="fa fa-heart-o fa-2x"></span></li>
+                                    <li><span class="fa fa-flag fa-2x"></span></li>
+                                    <!--<li><img src="/Images/SocialIcons/Flag-Report.png" /></li>-->
+                                </ul>
+                            </div>
+
+
+                        </article>
+                    </div>
+                </div>
+
+                <!-- SMALL SCREEN AREA -->
+                <div class="col-sm-12 innerDivWrapper small-screen-wrapper" style="clear:both;">
+                    <section class="poster-details" id="poster-details-for-small-screen">
+                        <div>
+                            <p *ngIf="!postIsFromCurrentUser" id="postedAndRegDate">
+                                <img *ngIf="itemOwnerPhotoUrl" src="/Uploads/UserPics/{{itemOwnerPhotoUrl}}" class="img-circle ownerPhoto" />
+                                <img *ngIf="!itemOwnerPhotoUrl" src="/Images/Dummies/User.png" class="img-circle ownerPhoto photoDummy" />
+                                <span id="nameSpan">{{itemOwnerFullname}}</span>
+                                <span id="reg-since" style="display:block;">Registered since {{ownerRegisteredDate | date}}</span>
+                            </p>
+
+                            <p *ngIf="postIsFromCurrentUser" style="border:1px solid #ccc;padding:10px;background:#efefef;">
+                                <span style="text-transform:capitalize;font-size:16px;color:#999;">{{itemOwnerFullname}} </span><br />
+                                <a [routerLink]="['/dashboard/post/',mainItemId,'edit']" style="color:#5cb85c;"><i class="fa fa-edit"></i> Edit this post</a><br />
+                                <a [routerLink]="['/dashboard/post/',mainItemId]" style="color:#5cb85c;"><i class="fa fa-trash"></i> Delete this post</a>
+                            </p>
+
+                            <span *ngIf="showmessageArea && !postIsFromCurrentUser" id="user-phone-num"><i class="glyphicon glyphicon-earphone"></i> {{itemOwnerPhone}}</span>
+                        </div>
+                        <div class="col-sm-12 small-screen-contact" *ngIf="showmessageArea && !postIsFromCurrentUser">
+                            <section class="contact-form">
+                                <h4 id="snd-msg-title">Send message to {{itemOwnerFullname}}</h4>
+                                <div>
+                                    <form [formGroup]="sndMsgFormGroup" novalidate (ngSubmit)="sndMsgAndNotify(sndMsgFormGroup.value)">
+                                        <div class="form-group form-group-sm" [ngClass]="{'has-error': (sndMsgFormGroup.get('message').touched ||
+                                                sndMsgFormGroup.get('message').dirty) &&
+                                                !sndMsgFormGroup.get('message').valid }">
+                                            <textarea placeholder="Message" class="form-control" rows="5" formControlName="message"></textarea>
+                                            <span class="text-danger" *ngIf="(sndMsgFormGroup.get('message').touched ||
+                                                         sndMsgFormGroup.get('message').dirty) &&
+                                                         sndMsgFormGroup.get('message').errors">
+                                                <span class="text-danger" *ngIf="sndMsgFormGroup.get('message').errors.required">
+                                                    Message is needed.
+                                                </span>
+                                            </span>
+                                        </div>
+
+                                        <alert style="text-align:center;" *ngIf="msgSentMsgShow" type="success" dismissOnTimeout="2000" (onClosed)="alertClosed()">
+                                            Message sent
+                                        </alert>
+                                        <alert style="text-align:center;" *ngIf="tryingToSendEmpty" type="warning" dismissOnTimeout="2000" (onClosed)="alertClosed()">
+                                            You are trying to submit an empty Value
+                                        </alert>
+
+                                        <div class="form-group form-group-sm">
+                                            <input type="submit" class="btn btn-warning center-block" value="Send message" [disabled]="!sndMsgFormGroup.valid" />
+                                        </div>
+                                    </form>
+                                </div>
+
+                            </section>
+
+                        </div>
+                        <div *ngIf="!showmessageArea && !postIsFromCurrentUser" style="margin-top:20px;">
+                            <input (click)="loginAndBacktoOrigin($event)" type="button" class="btn btn-warning btn-block" style="padding-top:20px;padding-bottom:20px;" value="Login to contact publisher" />
+                        </div>
+                    </section>
+                </div>
+
+                <h5 class="other-header">Other Items by {{itemOwnerFullname}}</h5>
+                <section *ngIf="mateItemWithRelObjs?.otherMateItemsByOwner">
+                    <div class="row other-item-list" *ngFor="let miWithRelObjs of mateItemWithRelObjs.otherMateItemsByOwner">
+                        <div class="col-md-3 col-sm-12" style="padding-left:0;padding-right:0;">
+                            <img *ngIf="miWithRelObjs.itemPhotos[0]" src="/Uploads/{{miWithRelObjs.itemPhotos[0]?.filename}}" class="img-responsive" />
+                            <img *ngIf="!miWithRelObjs.itemPhotos[0]" src="/Images/Dummies/Picture.png" class="img-responsive" />
+                        </div>
+                        <div class="col-md-9 col-sm-12 titleDescAndcat">
+                            <a class="title" [routerLink]="['/state', miWithRelObjs.itemState,miWithRelObjs.itemCategory, miWithRelObjs.id]">{{miWithRelObjs.title}}</a>
+                            <p class="short-desc">{{miWithRelObjs.description}}</p>
+                            <span class="CatAndLocation">
+                                <a [routerLink]="['/state', miWithRelObjs.itemState,miWithRelObjs.itemCategory]">{{miWithRelObjs.itemCategory}}</a> <a [routerLink]="['/state', miWithRelObjs.itemState]">{{miWithRelObjs.itemState}}</a>
+                                <span class="pull-right time-posted"><i class="fa fa-clock-o"></i> {{miWithRelObjs.datePosted | timeAgo}}</span>
+                            </span>
+                        </div>
+                    </div>
+                </section>
+                <p class="noitem" *ngIf="mateItemWithRelObjs.otherMateItemsByOwner.length == 0">
+                    None
+                </p>
+
+                <h5 class="other-header" style="margin-top:24px;">Other {{currentCategoryFirstUpper}}s in {{currentStateFirstUpper}}</h5>
+                <section *ngIf="mateItemWithRelObjs.otherMateItemsWithSameCatAndState">
+                    <div class="row other-item-list" *ngFor="let miWithSmCatAandState of mateItemWithRelObjs.otherMateItemsWithSameCatAndState">
+                        <div class="col-md-3 col-sm-12" style="padding-left:0;padding-right:0;">
+                            <img *ngIf="miWithSmCatAandState.itemPhotos[0]" src="/Uploads/{{miWithSmCatAandState.itemPhotos[0]?.filename}}" class="img-responsive" />
+                        </div>
+                        <div class="col-md-9 col-sm-12 titleDescAndcat">
+                            <a class="title" [routerLink]="['/state', miWithSmCatAandState.itemState,miWithSmCatAandState.itemCategory, miWithSmCatAandState.id]">
+                                {{miWithSmCatAandState.title}}
+                            </a>
+                            <p class="short-desc">{{miWithSmCatAandState.description}}</p>
+                            <span class="CatAndLocation">
+                                <a [routerLink]="['/state', miWithSmCatAandState.itemState,miWithSmCatAandState.itemCategory]">
+                                    {{miWithSmCatAandState.itemCategory}}
+                                </a>
+                                <a [routerLink]="['/state', miWithSmCatAandState.itemState]">{{miWithSmCatAandState.itemState}}</a>
+                                <span class="pull-right time-posted"><i class="fa fa-clock-o"></i> {{miWithSmCatAandState.datePosted | timeAgo}}</span>
+                            </span>
+                        </div>
+                    </div>
+                </section>
+                <p class="noitem" *ngIf="mateItemWithRelObjs.otherMateItemsWithSameCatAndState.length == 0">
+                    None
+                </p>
+
+            </section>
+        </div>
+
+        <div class="col-md-2 col-sm-12 innerDivWrapper" id="relLinks-for-small-screen">
+            <section class="inner categories">
+                <h5>RELATED LINKS</h5>
+                <div class="list-group" id="categories">
+                    <p class="list-group-item"><a [routerLink]="['/state',currentState,currentCategory]">{{currentCategoryFirstUpper}}</a></p>
+                    <p class="list-group-item"><a [routerLink]="['/state',currentState]">{{currentStateFirstUpper}}</a></p>
+                </div>
+            </section>
+        </div>
+
+        <!-- BIG SCREEN AREA -->
+        <div class="col-md-4 col-sm-12 innerDivWrapper">
+            <section class="poster-details" id="poster-details-for-big-screen">
+                <div>
+                    <p *ngIf="!postIsFromCurrentUser" id="postedAndRegDate">
+                        <!--<span style="display:block;">Posted by John 5hrs ago</span>-->
+                        <img *ngIf="itemOwnerPhotoUrl" src="/Uploads/UserPics/{{itemOwnerPhotoUrl}}" class="img-circle ownerPhoto" />
+                        <img *ngIf="!itemOwnerPhotoUrl" src="/Images/Dummies/User.png" class="img-circle ownerPhoto photoDummy" />
+                        <span id="nameSpan">{{itemOwnerFullname}}</span>
+                        <span id="reg-since" style="display:block;">Registered since {{ownerRegisteredDate | date}}</span>
+                    </p>
+
+                    <p *ngIf="postIsFromCurrentUser" style="margin-top:90px;border:1px solid #ccc;padding:10px;background:#efefef;">
+                        <span style="text-transform:capitalize;font-size:16px;color:#999;">{{itemOwnerFullname}} </span><br />
+                        <a [routerLink]="['/dashboard/post/',mainItemId,'edit']" style="color:#5cb85c;"><i class="fa fa-edit"></i> Edit this post</a><br />
+                        <a [routerLink]="['/dashboard/post/',mainItemId]" style="color:#5cb85c;"><i class="fa fa-trash"></i> Delete this post</a>
+                    </p>
+
+                    <span *ngIf="showmessageArea && !postIsFromCurrentUser" id="user-phone-num"><i class="glyphicon glyphicon-earphone"></i> {{itemOwnerPhone}}</span>
+                </div>
+                <div class="col-sm-12" style="background-color:#fff;margin:0;" *ngIf="showmessageArea && !postIsFromCurrentUser">
+                    <section class="contact-form">
+                        <h4 id="snd-msg-title">Send message to {{itemOwnerFullname}}</h4>
+                        <div>
+                            <form [formGroup]="sndMsgFormGroup" novalidate (ngSubmit)="sndMsgAndNotify(sndMsgFormGroup.value)">
+                                <!--<div class="form-group form-group-sm" [ngClass]="{'has-error': (sndMsgFormGroup.get('senderName').touched ||
+                                                    sndMsgFormGroup.get('senderName').dirty) &&
+                                                    !sndMsgFormGroup.get('senderName').valid }">
+                                    <input type="text" placeholder="Name" class="form-control" formControlName="senderName" />
+                                    <span class="text-danger" *ngIf="(sndMsgFormGroup.get('senderName').touched ||
+                                                             sndMsgFormGroup.get('senderName').dirty) &&
+                                                             sndMsgFormGroup.get('senderName').errors">
+                                        <span class="text-danger" *ngIf="sndMsgFormGroup.get('senderName').errors.required">
+                                            Name is needed.
+                                        </span>
+                                    </span>
+                                </div>-->
+                                <!--<div class="form-group form-group-sm" [ngClass]="{'has-error': (sndMsgFormGroup.get('senderEmail').touched ||
+                                                    sndMsgFormGroup.get('senderEmail').dirty) &&
+                                                    !sndMsgFormGroup.get('senderEmail').valid }">
+                                    <input type="text" placeholder="Email" class="form-control" formControlName="senderEmail" />
+                                    <span class="text-danger" *ngIf="(sndMsgFormGroup.get('senderEmail').touched ||
+                                                             sndMsgFormGroup.get('senderEmail').dirty) &&
+                                                             sndMsgFormGroup.get('senderEmail').errors">
+                                        <span *ngIf="sndMsgFormGroup.get('senderEmail').errors.required">
+                                            Please enter Email.
+                                        </span>
+                                        <span *ngIf="sndMsgFormGroup.get('senderEmail').errors.pattern">
+                                            Enter a valid Email.
+                                        </span>
+                                    </span>
+                                </div>-->
+
+                                <div class="form-group form-group-sm" [ngClass]="{'has-error': (sndMsgFormGroup.get('message').touched ||
+                                                sndMsgFormGroup.get('message').dirty) &&
+                                                !sndMsgFormGroup.get('message').valid }">
+                                    <textarea placeholder="Message" class="form-control" rows="10" formControlName="message"></textarea>
+                                    <span class="text-danger" *ngIf="(sndMsgFormGroup.get('message').touched ||
+                                                         sndMsgFormGroup.get('message').dirty) &&
+                                                         sndMsgFormGroup.get('message').errors">
+                                        <span class="text-danger" *ngIf="sndMsgFormGroup.get('message').errors.required">
+                                            Message is needed.
+                                        </span>
+                                    </span>
+                                </div>
+
+                                <alert style="text-align:center;" *ngIf="msgSentMsgShow" type="success" dismissOnTimeout="2000" (onClosed)="alertClosed()">
+                                    Message sent
+                                </alert>
+                                <alert style="text-align:center;" *ngIf="tryingToSendEmpty" type="warning" dismissOnTimeout="2000" (onClosed)="alertClosed()">
+                                    You are trying to submit an empty Value
+                                </alert>
+
+                                <div class="form-group form-group-sm">
+                                    <input type="submit" class="btn btn-warning center-block" value="Send message" [disabled]="!sndMsgFormGroup.valid" />
+                                </div>
+                            </form>
+
+                        </div>
+
+                    </section>
+                </div>
+
+                <div *ngIf="!showmessageArea" style="margin-top:20px;">
+                    <input (click)="loginAndBacktoOrigin($event)" type="button" class="btn btn-warning btn-block" style="padding-top:20px;padding-bottom:20px;" value="Login to contact publisher" />
+                </div>
+            </section>
+        </div>
+    </div>
+
+</div>
+
+<div class="row" *ngIf="mateItemWithRelObjs && postNotYetApproved && !postIsFromCurrentUser && !isCurrentUserAnAdmin" id="cantDisplayItem">
+    <p class="text-center">This item is waiting for approval, therefore cannot be displayed.</p>
+</div>
+
+<div class="row" *ngIf="!mateItemWithRelObjs" id="cantDisplayItem">
+    <p class="text-center">Item details can't be displayed at the moment, maybe item has been removed<br /> or your internet connection is not working.</p>
+</div>

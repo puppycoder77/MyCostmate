@@ -1,0 +1,189 @@
+﻿<div *ngIf="!confirmationMsgSent">
+    <div class="col-md-1 hidden-sm"></div>
+    <div class="col-md-10 col-sm-12 reg-form-parent">
+        <section class="login-form well well-lg" style="margin-bottom:0;">
+            <h4>Registration Form</h4>
+            <div>
+                <form [formGroup]="registerFormGroup" novalidate (ngSubmit)="registerAndNavigate(registerFormGroup.value)">
+                    <div class="form-group form-group-lg" [ngClass]="{'has-error': (registerFormGroup.get('username').touched ||
+                                                registerFormGroup.get('username').dirty) &&
+                                                !registerFormGroup.get('username').valid }">
+                    <input type="text" placeholder="Username" class="form-control" formControlName="username" />
+                        <span class="help-block" *ngIf="(registerFormGroup.get('username').touched ||
+                                                            registerFormGroup.get('username').dirty) &&
+                                                            (registerFormGroup.get('username').errors ||
+                                                            registerFormGroup.get('username').errors) ">
+                            <span class="text-danger" *ngIf="registerFormGroup.get('username').errors.required">
+                                Username is needed.
+                            </span>
+                            <span class="text-danger" *ngIf="registerFormGroup.get('username').errors.minlength">
+                                Username should be at least 5 characters.
+                            </span>
+                        </span>
+                    </div>
+
+                    <div class="form-group form-group-lg" [ngClass]="{'has-error': (registerFormGroup.get('firstname').touched ||
+                                                registerFormGroup.get('firstname').dirty) &&
+                                                !registerFormGroup.get('firstname').valid }">
+                        <input type="text" placeholder="Firstname" class="form-control" formControlName="firstname" />
+                        <span class="help-block" *ngIf="(registerFormGroup.get('firstname').touched ||
+                                                            registerFormGroup.get('firstname').dirty) &&
+                                                            (registerFormGroup.get('firstname').errors ||
+                                                            registerFormGroup.get('firstname').errors) ">
+                            <span class="text-danger" *ngIf="registerFormGroup.get('firstname').errors.required">
+                                Firstname is needed.
+                            </span>
+                            <span class="text-danger" *ngIf="registerFormGroup.get('firstname').errors.maxlength">
+                                Firstname should not be longer than 20 characters.
+                                Password should be at least 6 characters
+                            </span>
+                        </span>
+                    </div>
+
+                    <div class="form-group form-group-lg" [ngClass]="{'has-error': (registerFormGroup.get('lastname').touched ||
+                                                registerFormGroup.get('lastname').dirty) &&
+                                                !registerFormGroup.get('lastname').valid }">
+                        <input type="text" placeholder="Lastname" class="form-control" formControlName="lastname" />
+                        <span class="help-block" *ngIf="(registerFormGroup.get('lastname').touched ||
+                                                            registerFormGroup.get('lastname').dirty) &&
+                                                            (registerFormGroup.get('lastname').errors ||
+                                                            registerFormGroup.get('lastname').errors) ">
+                            <span class="text-danger" *ngIf="registerFormGroup.get('lastname').errors.required">
+                                Lastname is needed.
+                            </span>
+                            <span class="text-danger" *ngIf="registerFormGroup.get('lastname').errors.maxlength">
+                                Lastname should not be longer than 20 characters.
+                            </span>
+                        </span>
+                    </div>
+
+                    <div formGroupName="passwordGroup"
+                         [ngClass]="{'has-error': registerFormGroup.get('passwordGroup').errors }">
+                        <div class="form-group form-group-lg">
+                            <input class="form-control" type="password" placeholder="Password" formControlName="password" />
+                            <span class="help-block" *ngIf="(registerFormGroup.get('passwordGroup.password').touched ||
+                                                            registerFormGroup.get('passwordGroup.password').dirty) &&
+                                                            (registerFormGroup.get('passwordGroup.password').errors ||
+                                                            registerFormGroup.get('passwordGroup').errors) ">
+                                <span class="text-danger" *ngIf="registerFormGroup.get('passwordGroup?.password').errors?.required">
+                                    Password is needed.
+                                </span>
+                                <span class="text-danger" *ngIf="registerFormGroup.get('passwordGroup.password').errors.minlength">
+                                    Password should be at least 6 characters
+                                </span>
+                            </span>
+                        </div>
+
+                        <div class="form-group form-group-lg"
+                             [ngClass]="{'has-error': (registerFormGroup.get('passwordGroup.confirmPassword').touched ||
+                                                registerFormGroup. get('passwordGroup.confirmPassword').dirty) &&
+                                                !registerFormGroup.get('passwordGroup.confirmPassword').valid }">
+                         
+                                <input class="form-control" type="password" placeholder="Re-type Password" formControlName="confirmPassword" />
+                                <span class="help-block" *ngIf="(registerFormGroup.get('passwordGroup.confirmPassword').touched ||
+                                                            registerFormGroup.get('passwordGroup.confirmPassword').dirty) &&
+                                                            (registerFormGroup.get('passwordGroup.confirmPassword').errors ||
+                                                            registerFormGroup.get('passwordGroup').errors) ">
+                                    <span *ngIf="registerFormGroup.get('passwordGroup.confirmPassword').errors?.required">
+                                        Please confirm your password.
+                                    </span>
+                                    <span *ngIf="registerFormGroup.get('passwordGroup').errors?.match && !registerFormGroup.get('passwordGroup.confirmPassword').errors?.required">
+                                        The confirmation does not match the password.
+                                    </span>
+                                </span>
+                        </div>
+                    </div>
+
+                    <!-- ///////////////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
+                    <div class="form-group form-group-lg" [ngClass]="{'has-error': (registerFormGroup.get('email').touched ||
+                                                registerFormGroup. get('email').dirty) &&
+                                                !registerFormGroup.get('email').valid }">
+
+                        <input type="text" placeholder="Email" class="form-control" formControlName="email" />
+                        <span class="text-danger" *ngIf="(registerFormGroup.get('email').touched ||
+                                                         registerFormGroup.get('email').dirty) &&
+                                                         registerFormGroup.get('email').errors">
+                            <span *ngIf="registerFormGroup.get('email').errors.required">
+                                Please enter email.
+                            </span>
+                            <span *ngIf="registerFormGroup.get('email').errors.pattern">
+                                Enter a valid email.
+                            </span>
+                        </span>
+                    </div>
+
+                    <div class="form-group form-group-lg" [ngClass]="{'has-error': (registerFormGroup.get('phone').touched ||
+                                                registerFormGroup.get('phone').dirty) &&
+                                                !registerFormGroup.get('phone').valid }">
+                        <input type="text" placeholder="Phone" class="form-control" formControlName="phone" />
+                        <span class="help-block" *ngIf="(registerFormGroup.get('phone').touched ||
+                                                            registerFormGroup.get('phone').dirty) &&
+                                                            (registerFormGroup.get('phone').errors ||
+                                                            registerFormGroup.get('phone').errors) ">
+                            <span class="text-danger" *ngIf="registerFormGroup.get('phone').errors.required">
+                                Phone is needed.
+                            </span>
+                            <span class="text-danger" *ngIf="registerFormGroup.get('phone').errors.maxlength">
+                                Phone must be longer than 20 characters.
+                            </span>
+                        </span>
+                    </div>
+
+                    <div class="form-group form-group-lg" [ngClass]="{'has-error': (registerFormGroup.get('userState').touched ||
+                                                registerFormGroup.get('userState').dirty) &&
+                                                !registerFormGroup.get('userState').valid }">
+                        <select class="form-control" style="background-color:#f5f5f5;" formControlName="userState">
+                            <option disabled value="">Select state</option>
+                            <option *ngFor="let state of allNigState" value='{{state.toLowerCase().replace(" ","-")}}'>{{state}}</option>
+                        </select>
+
+                        <span class="help-block" *ngIf="(registerFormGroup.get('userState').touched ||
+                                                            registerFormGroup.get('userState').dirty) &&
+                                                            (registerFormGroup.get('userState').errors ||
+                                                            registerFormGroup.get('userState').errors) ">
+                            <span class="text-danger" *ngIf="registerFormGroup.get('userState').errors.required">
+                                State is needed.
+                            </span>
+                        </span>
+                       
+                    </div>
+
+
+                    <div id="feedbacks">
+                        <p *ngIf="!registeringNewUser && registerSuccessNowLoginIn" class="text-center">
+                            <alert type="success" [dismissible]="dismissible">
+                                Registeration Successful, Login in....
+                            </alert>
+                        </p>
+
+                        <p *ngIf="!registerSuccessNowLoginIn && registeringNewUser && !regErrorOccured" class="text-center">
+                            <alert type="success" [dismissible]="dismissible">
+                                <img src="/Images/Loading.png" class="loadingImg" /> Registration in proccess, please wait....
+                            </alert>
+                        </p>
+
+                        <p *ngIf="regErrorOccured" class="text-center">
+                            <alert type="success" [dismissible]="dismissible">
+                                {{regErrmsg}}
+                            </alert>
+                        </p>
+                    </div>
+
+                        <input type="submit" class="btn btn-warning btn-block" value="Sign in" [disabled]="!registerFormGroup.valid" style="width:100%;" />
+                </form>
+
+                <div class="row">
+                    <p class="col-sm-12" id="noAcc"><span>Already have an account</span> <a [routerLink]="['/signin']" id="sgnup">Signin</a></p>
+                </div>
+
+            </div>
+
+        </section>
+    </div>
+    <div class="col-md-1 hidden-sm"></div>
+</div>
+
+<div *ngIf="confirmationMsgSent" style="margin-top:40px;color:#666;font-size:18px;text-align:center;">
+    A confirmation mail has been sent to {{currUserEmail}}
+</div>

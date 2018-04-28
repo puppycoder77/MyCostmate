@@ -1,0 +1,23 @@
+﻿<div class="row">
+    <div class="col-md-2 col-sm-12 pull-left" id="dashboard-sidebar">
+        <div class="list-group" id="categories">
+            <p class="list-group-item" [routerLinkActive]="['link-active']"><a [routerLink]="['profile']">Profile</a></p>
+            <p class="list-group-item" [routerLinkActive]="['link-active']"><a [routerLink]="['message']">Message</a></p>
+            <p class="list-group-item" [routerLinkActive]="['link-active']"><a [routerLink]="['post']">Published Items</a></p>
+        </div>
+    </div>
+
+    <div class="col-md-2 col-sm-12" id="dashboard-sidebar-sm-screen" style="clear:both;">
+        <div class="list-group">
+            <ul class="list-unstyled list-inline">
+                <li><p class="list-group-item" [routerLinkActive]="['link-active']"><a [routerLink]="['profile']">Profile</a></p></li>
+                <li><p class="list-group-item" [routerLinkActive]="['link-active']"><a [routerLink]="['message']">Message</a></p></li>
+                <li><p class="list-group-item" [routerLinkActive]="['link-active']"><a [routerLink]="['post']">Published Items</a></p></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="col-md-10 col-sm-12 pull-right" id="outlet-wrapper">
+        <router-outlet></router-outlet>
+    </div>
+</div>

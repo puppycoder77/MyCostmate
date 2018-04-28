@@ -1,0 +1,169 @@
+﻿<form [formGroup]="editItemFormGroup" novalidate (ngSubmit)="updateItem(mateItemCl.id, editItemFormGroup.value, editItemFormGroup)" id="editForm">
+
+    <a (click)="goBackToList($event)" class="pull-right backAnchor"><span class="fa fa-arrow-circle-left"></span> All Item</a>
+    <a (click)="goBackToDetail($event)" class="pull-right backAnchor"><span class="fa fa-arrow-circle-left"></span> Item Detail</a>
+
+    <div class="form-group form-group-lg" [ngClass]="{'has-error': (editItemFormGroup.get('title').touched ||
+                                                editItemFormGroup.get('title').dirty) &&
+                                                !editItemFormGroup.get('title').valid }">
+        <input type="text" placeholder="Title" class="form-control" formControlName="title" />
+
+        <span class="help-block" *ngIf="(editItemFormGroup.get('title').touched ||
+                                                            editItemFormGroup.get('title').dirty) &&
+                                                            (editItemFormGroup.get('title').errors ||
+                                                            editItemFormGroup.get('title').errors) ">
+            <span class="text-danger" *ngIf="editItemFormGroup.get('title').errors.required">
+                Title is needed.
+            </span>
+            <span class="text-danger" *ngIf="editItemFormGroup.get('title').errors.minlength">
+                Title must be longer than 4 characters.
+            </span>
+            <span class="text-danger" *ngIf="editItemFormGroup.get('title').errors.maxlength">
+                Title must not be longer than 60 characters.
+            </span>
+        </span>
+    </div>
+
+    <div class="row">
+        <div class="form-group form-group-lg col-lg-6">
+            <select class="form-control" formControlName="itemCategory">
+                <option disabled value="">Select category</option>
+                <option *ngFor="let category of allCategory" value='{{category.toLowerCase().replace("/","-")}}'>{{category}}</option>
+            </select>
+        </div>
+
+        <div class="form-group form-group-lg col-lg-6">
+            <select class="form-control" formControlName="itemState">
+                <option disabled value="">Select state</option>
+                <option *ngFor="let state of allNigState" value='{{state.toLowerCase().replace(" ","-")}}'>{{state}}</option>
+            </select>
+        </div>
+    </div>
+   
+
+    <div class="form-group form-group-lg" [ngClass]="{'has-error': (editItemFormGroup.get('description').touched ||
+                                                editItemFormGroup.get('description').dirty) &&
+                                                !editItemFormGroup.get('description').valid }">
+        <textarea placeholder="Description" class="form-control" rows="5" formControlName="description"></textarea>
+        <span class="help-block" *ngIf="(editItemFormGroup.get('description').touched ||
+                                                            editItemFormGroup.get('description').dirty) &&
+                                                            (editItemFormGroup.get('description').errors ||
+                                                            editItemFormGroup.get('description').errors) ">
+            <span class="text-danger" *ngIf="editItemFormGroup.get('description').errors.required">
+                Description is needed.
+            </span>
+            <span class="text-danger" *ngIf="editItemFormGroup.get('description').errors.minlength">
+                Description must be longer than 9 characters.
+            </span>
+            <span class="text-danger" *ngIf="editItemFormGroup.get('description').errors.maxlength">
+                Description must not be longer than 400 characters.
+            </span>
+        </span>
+    </div>
+    <!-- Image area -->
+    <div>
+
+        <alert *ngIf="pictureDeleted" type="success" [dismissible]="true">
+            Image deleted
+        </alert>
+
+        <!--<alert style="text-align:center;" *ngIf="pictureDeleted" type="success"  dismissOnTimeout="2000" (onClosed)="alertClosed()">
+            Image deleted
+        </alert>-->
+
+        <alert style="text-align:center;" *ngIf="showFileSizeError" type="success" [dismissible]="true" dismissOnTimeout="5000" (onClosed)="alertClosed()">
+            File size too big, should not exceed 10MB
+        </alert>
+
+        <ul class="list-inline text-center" style="margin-top:20px;">
+            <!-- Check for first image -->
+            <li *ngIf="mateItemCl.itemPhotos[0]">
+                <img src="/Uploads/{{mateItemCl.itemPhotos[0].filename}}" id="firstExistingImgDisplay" style="width:100px; height:80px;" />
+                <span class="btn btn-block btn-sm btn-danger clearbtn" (click)="clearFirstImgFromDb(mateItemCl.itemPhotos[0].id)" style="cursor:pointer;">Delete/Change Saved Photo</span>
+            </li>
+            <li *ngIf="!mateItemCl.itemPhotos[0] && showFirstImage">
+                <img id="firstImgDisplay" style="width:100px; height:80px;" />
+                <span class="btn btn-block btn-sm btn-danger clearbtn" (click)="clearFirstImgPrev()" style="cursor:pointer;">Change/Clear Photo</span>
+            </li>
+            <li *ngIf="!mateItemCl.itemPhotos[0] && !showFirstImage" class="bg-success" (click)="firstImgInputClickTrigger()">
+                <span class='glyphicon glyphicon-camera btn-sm plus-sign'></span>
+            </li>
+            <!-- End of check for first image -->
+
+            <!-- Check for second image -->
+            <li *ngIf="mateItemCl.itemPhotos[1]">
+                <img src="/Uploads/{{mateItemCl.itemPhotos[1].filename}}" id="secondExistingImgDisplay" style="width:100px; height:80px;" />
+                <span class="btn btn-block btn-sm btn-danger clearbtn" (click)="clearSecondImgFromDb(mateItemCl.itemPhotos[1].id)" style="cursor:pointer;">Delete/Change Saved Photo</span>
+            </li>
+            <li *ngIf="!mateItemCl.itemPhotos[1] && showSecondImage">
+                <img id="secondImgDisplay" style="width:100px; height:80px;" />
+                <span class="btn btn-block btn-sm btn-danger clearbtn" (click)="clearSecondImgPrev()" style="cursor:pointer;">Change/Clear Photo</span>
+            </li>
+            <li *ngIf="!mateItemCl.itemPhotos[1] && !showSecondImage" class="bg-success" (click)="secondImgInputClickTrigger()">
+                <span class='glyphicon glyphicon-camera btn-sm plus-sign'></span>
+            </li>
+            <!-- End of check for second image -->
+
+            <!-- Check for third image -->
+            <li *ngIf="mateItemCl.itemPhotos[2]">
+                <img src="/Uploads/{{mateItemCl.itemPhotos[2].filename}}" id="thirdExistingImgDisplay" style="width:100px; height:80px;" />
+                <span class="btn btn-block btn-sm btn-danger clearbtn" (click)="clearThirdImgFromDb(mateItemCl.itemPhotos[2].id)" style="cursor:pointer;">Delete/Change Saved Photo</span>
+            </li>
+            <li *ngIf="!mateItemCl.itemPhotos[2] && showThirdImage">
+                <img id="thirdImgDisplay" style="width:100px; height:80px;" />
+                <span class="btn btn-block btn-sm btn-danger clearbtn" (click)="clearThirdImgPrev()" style="cursor:pointer;">Change/Clear Photo</span>
+            </li>
+            <li *ngIf="!mateItemCl.itemPhotos[2] && !showThirdImage" class="bg-success" (click)="thirdImgInputClickTrigger()">
+                <span class='glyphicon glyphicon-camera btn-sm plus-sign'></span>
+            </li>
+            <!-- End of check for third image -->
+        </ul>
+    </div>
+
+    <!--<div class="row" style="margin-top:50px;margin-bottom:80px;">
+        <p class="col-sm-12 text-center" id="noAcc">Add Photos<span id="addPotosDef">(post with pictures attract more contacts.)</span></p>
+        <ul class="list-inline text-center" style="margin-top:20px;">
+            <li *ngIf="!showFirstImage" class="bg-success" (click)="firstImgInputClickTrigger()">
+                <span class='glyphicon glyphicon-camera btn-sm plus-sign'></span>
+            </li>
+            <li *ngIf="showFirstImage" id="firstimgzone">
+                <img id="firstImgDisplay" style="width:100px; height:80px;" />
+                <span class="btn btn-block btn-sm btn-danger clearbtn" (click)="clearFirstImgPrev()" style="cursor:pointer;">Change/Clear Photo</span>
+            </li>
+
+
+            <li *ngIf="!showSecondImage" class="bg-success" (click)="secondImgInputClickTrigger()">
+                <span class='glyphicon glyphicon-camera btn-sm plus-sign'></span>
+            </li>
+            <li *ngIf="showSecondImage" id="secondimgzone">
+                <img id="secondImgDisplay" width="100" height="80" />
+                <span class="btn btn-block btn-sm btn-danger clearbtn" (click)="clearSecondImgPrev()" style="cursor:pointer;">Change/Clear Photo</span>
+            </li>
+
+            <li *ngIf="!showThirdImage" class="bg-success" (click)="thirdImgInputClickTrigger()">
+                <span class='glyphicon glyphicon-camera btn-sm plus-sign'></span>
+            </li>
+            <li *ngIf="showThirdImage" id="thirdimgzone">
+                <img id="thirdImgDisplay" width="100" height="80" />
+                <span class="btn btn-block btn-sm btn-danger clearbtn" (click)="clearThirdImgPrev()" style="cursor:pointer;">Change/Clear Photo</span>
+            </li>
+        </ul>
+    </div>-->
+
+    <alert style="text-align:center;" *ngIf="showRotatingCircle" type="success">
+        <img src="/Images/Loading.png" class="loadingImg" /> Update in progress...
+    </alert>
+
+    <div class="form-group form-group-lg" style="margin-top:40px;">
+        <input type="submit" value="Submit" class="btn btn-warning center-block form-control" [disabled]="!editItemFormGroup.valid" />
+    </div>
+
+
+    <!-- HIDDEN INPUT FILES -->
+    <P style="display:none;">
+        <input type="file" name="firstImgInput" id="firstImgInput" (change)="firstImgInputChanged(firstImgInput)" formControlName="firstImage" #firstImgInput />
+        <input type="file" name="secondImgInput" id="secondImgInput" (change)="secondImgInputChanged(secondImgInput)" formControlName="secondImage" #secondImgInput />
+        <input type="file" name="thirdImgInput" id="thirdImgInput" (change)="thirdImgInputChanged(thirdImgInput)" formControlName="thirdImage" #thirdImgInput />
+    </P>
+    <!-- END OF HIDDEN INPUT FILES -->
+</form>

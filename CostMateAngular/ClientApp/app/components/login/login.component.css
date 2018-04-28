@@ -1,0 +1,121 @@
+﻿@font-face {
+    font-family: 'fradmcn';
+    src: url('/Fonts/FRADMCN.TTF') format('truetype');
+}
+
+#feedbacks {
+    margin-top:20px;
+}
+
+.login-form {
+    padding-bottom: 80px;
+}
+
+    .contact-h4, .login-form h4 {
+        font-weight: bold;
+        color: #6a7072;
+    }
+
+
+    .login-form h4 {
+        padding-top: 5px;
+        padding-bottom: 40px;
+        font-family: fradmcn;
+        font-size: 30px;
+        color:#999;
+    }
+
+.well {
+    background-color: #fff;
+    padding-right: 48px;
+    padding-left: 48px;
+}
+
+input {
+    font-family: Kalinga;
+}
+
+#fgPswd {
+    text-align: right;
+}
+
+#noAcc #sgnup, #fgPswd {
+    color: #339966;
+    cursor:pointer;
+}
+
+#noAcc, #fgPswd {
+    font-size: 13px;
+}
+
+.btn-warning {
+    font-size:16px;
+    /*max-width:200px;*/
+    margin-top:60px;
+    height:80px;line-height:65px;
+}
+
+.social-logins {
+    display:none;  /*TODO:Remove later when all logins logic has been implemented(Only google working for now.)*/
+    background-color: #333;
+    padding-top:20px;
+    padding-bottom:20px;
+    text-align:center;
+}
+
+.social-share-icons {
+   margin-top:20px;
+   cursor:pointer;
+}
+
+.social-share-icons i {
+    font-size: 30px;
+}
+
+    .social-share-icons i, .social-share-icons a {
+        color: #ccc !important;
+    }
+
+        .social-share-icons i.fa-facebook:hover {
+            color: #005ba0 !important;
+        }
+
+        .social-share-icons i.fa-twitter:hover {
+            color: #439cb4 !important;
+        }
+
+        .social-share-icons i.fa-google:hover {
+            color: #ce0b0b !important;
+        }
+
+.loadingImg {
+    width: 20px;
+    width: 20px;
+    -webkit-animation: spin 1000ms infinite linear;
+    animation: spin 1000ms infinite linear;
+}
+
+@media (max-width: 768px) {
+    #fgPswd, #noAcc {
+        text-align: center;
+    }
+
+    .well {
+        padding-right: 30px;
+        padding-left: 30px;
+    }
+
+    .col-sm-12.login-form-parent {
+        padding-right: 0 !important;
+        padding-left: 0 !important;
+    }
+
+    .login-form h4 {
+        font-family: fradmcn;
+        padding-top: 0;
+        padding-bottom: 20px;
+        font-size: 24px;
+        text-align: center;
+        color: #999;
+    }
+}

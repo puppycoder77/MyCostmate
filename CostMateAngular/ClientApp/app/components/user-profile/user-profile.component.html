@@ -1,0 +1,38 @@
+﻿<!--<div style="border: 1px solid red">UserProfile Component</div>-->
+<div class="row center-block" style="position:relative">
+    <!--<span style="color:#1db164;position:absolute;right:10px;top:5px;"><i class="glyphicon glyphicon-edit"></i> Edit</span>-->
+    <div class="col-md-3" id="user-pic-wrp">
+        <img *ngIf="currentUserPhotoUrl" src="/Uploads/UserPics/{{currentUserPhotoUrl}}" class="img-responsive img-circle user-pic" />
+        <p *ngIf="!currentUserPhotoUrl" class="img-responsive img-circle user-dummy-pic">
+            <!--<span class="glyphicon glyphicon-user"></span>-->
+            <img *ngIf="!showRealImage && !currentUserPhotoUrl" id="dummyUserPic" src="/Images/Dummies/User.png" class="img-circle" />
+            <img *ngIf="showRealImage" id="firstImgDisplay" style="width:100%;height:100%;" class="img-circle" />
+        </p>
+        <i *ngIf="!showRealImage && !showFileSizeError" class="fa fa-camera" style="font-size:16px;color:#999;"></i><span *ngIf="!showRealImage && !showFileSizeError" (click)="changePhoto()" class="text-center" id="changePhotoSpan"> Pick photo</span>
+        <button (click)="clearUserImgPrev()" class="btn btn-warning btn-sm" *ngIf="showRealImage">Change</button>
+        <button (click)="uploadUserImg()" class="btn btn-success btn-sm" *ngIf="showRealImage">Upload</button>
+        <alert style="text-align:center;" *ngIf="showFileSizeError" type="warning" [dismissible]="true" dismissOnTimeout="3000" (onClosed)="alertClosed()">
+            File size too big, should not exceed 10MB
+        </alert>
+   </div>
+    <div class="col-md-9" id="user-detail-wrp">
+        <ul class="list-unstyled">
+            <li class="form-group">
+                <span>Name: </span><span> {{appUsercl.firstname}} </span>
+            </li>
+            <li class="form-group">
+                <span>Surname: </span><span> {{appUsercl.lastname}} </span>
+            </li>
+            <li class="form-group">
+                <p *ngIf="currentUserEmail"><span>Email: </span><span> {{currentUserEmail}}</span></p>
+                <p *ngIf="!currentUserEmail"><span>Email: </span><span> nomail@nomail.com </span></p>
+</li>
+            <li class="form-group">
+                <span>State: </span><span> {{appUsercl.state}} </span>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<!-- Hidden Input[file] -->
+<input (change)="userImgInputChanged(userImage)" type="file" id="userImage" style="display:none;" #userImage />

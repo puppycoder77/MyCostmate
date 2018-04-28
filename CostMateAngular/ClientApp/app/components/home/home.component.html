@@ -1,0 +1,126 @@
+<!--<div class="container-fluid">-->
+<div *ngIf="homePgItemsCl">
+    <div class="row">
+        <div id="masthead">
+            <h4 id="header-title">
+                <!--<span style="font-weight:bold;">Cost</span> Sharing Simplified-->
+                <span id="my">my</span>costmate
+            </h4>
+            <!--<img src="/Images/Dummies/Picture.png" style="float:left;margin-right:20px;" />-->
+            <p id="paraExp">
+                <!--Not using that extra room in your apartment, space in your office, workshop, warehouse, car and others items? connect with someone who needs and will pay for it .-->
+
+                connecting people who splits and share cost.
+                <!--A platform that connects people who splits and share cost.-->
+        </div>
+    </div>
+
+    <div class="row" *ngIf="homePgItemsCl.firstItem">
+        <!-- USING CSS TEXT-TRANSFORM TO ACHIEVE FIRST LETTER CAPITALIZATION -->
+        <div class="col-md-8 col-sm-12 innerDivWrapper">
+            <section class="inner latest" style="width:100%;height:auto;">
+                <h5>LATEST</h5>
+                <div class="row topTwoWrapper">
+                    <div class="col-lg-6 col-sm-12 col-md-6 firstItemWrp">
+                        <article class="firstItem">
+                            <div class="top-two-titleAndCat">
+                                <a [routerLink]="['/state',homePgItemsCl?.firstItem?.itemState,homePgItemsCl?.firstItem?.itemCategory,homePgItemsCl?.firstItem?.id]" class="title">{{homePgItemsCl.firstItem.title}}</a>
+                                <p>{{homePgItemsCl.firstItem.description}}</p>
+                                <span class="CatAndLocation">
+                                    <a [routerLink]="['/state' , homePgItemsCl.firstItem.itemState, homePgItemsCl.firstItem.itemCategory]">{{homePgItemsCl.firstItem.itemCategory}}</a>
+                                    <a [routerLink]="['/state',homePgItemsCl.firstItem.itemState]">
+                                        {{homePgItemsCl.firstItem.itemState}}
+                                    </a>
+                                    <span class="pull-right time-posted"><i class="fa fa-clock-o"></i> {{homePgItemsCl.firstItem.datePosted | timeAgo}}</span>
+                                </span>
+                            </div>
+                        </article>
+                    </div>
+                    <div class="col-lg-6 col-sm-12 col-md-6 secondItemWrp">
+                        <article class="secondItem">
+                            <img class="img-responsive" src="/Uploads/{{homePgItemsCl.firstItem.itemPhotos[0].filename}}" />
+                        </article>
+                    </div>
+                    <span class="clearfix"></span>
+                </div>
+                <!-- LIST ITEMS UNDER THE FIRST LATEST ITEM -->
+                <div *ngFor="let mateItem of homePgItemsCl.dummynextTwoItems" class="row item-on-latest-list">
+                    <!--<div class="col-md-3 col-sm-12 list-item-img-wrp">
+                        <img *ngIf="mateItem.itemPhotos[0]" src="/Uploads/{{mateItem.itemPhotos[0]?.filename}}" class="img-responsive" />
+                        <img *ngIf="!mateItem.itemPhotos[0]" src="/Images/Dummies/Picture.png" class="img-responsive" />
+                    </div>-->
+                    <div class="col-sm-3 list-item-img-wrp">
+                        <img *ngIf="mateItem.itemPhotos[0]" src="/Uploads/{{mateItem.itemPhotos[0]?.filename}}" class="img-responsive" />
+                        <img *ngIf="!mateItem.itemPhotos[0]" src="/Images/Dummies/Picture.png" class="img-responsive" />
+                    </div>
+                    <!--<div class="col-md-9 col-sm-12 itemdesc">
+                        <h4>
+                            <a [routerLink]="['/state',mateItem.itemState,mateItem.itemCategory,mateItem.id]">{{mateItem.title}}</a>
+                        </h4>
+                        <p>{{mateItem.description}}</p>
+                        <span class="CatAndLocation">
+                            <a [routerLink]="['/state',mateItem.itemState, mateItem.itemCategory]">
+                                {{mateItem.itemCategory}}
+                            </a> |
+                            <a [routerLink]="['/state',mateItem.itemState]">
+                                {{mateItem.itemState}}
+                            </a>
+                            <span class="pull-right time-posted">{{mateItem.datePosted | timeAgo}}</span>
+
+                        </span>
+
+                    </div>-->
+                    <div class="col-sm-9 itemdesc">
+                        <h4>
+                            <a [routerLink]="['/state',mateItem.itemState,mateItem.itemCategory,mateItem.id]">{{mateItem.title}}</a>
+                        </h4>
+                        <p>{{mateItem.description}}</p>
+                        <span class="CatAndLocation">
+                            <a [routerLink]="['/state',mateItem.itemState, mateItem.itemCategory]">
+                                {{mateItem.itemCategory}}
+                            </a>
+                            <a [routerLink]="['/state',mateItem.itemState]">
+                                {{mateItem.itemState}}
+                            </a>
+                            <span class="pull-right time-posted"><i class="fa fa-clock-o"></i> {{mateItem.datePosted | timeAgo}}</span>
+
+                        </span>
+
+                    </div>
+                </div>
+                <!-- END OF LIST ITEMS UNDER THE FIRST LATEST ITEM -->
+            </section>
+        </div>
+        <!-- TRENDING ITEMS -->
+        <div class="col-md-4 col-sm-12 innerDivWrapper">
+            <section class="inner trending">
+                <h5>TRENDING</h5>
+                <div class="col-sm-12" style="padding:0">
+                    <article *ngFor="let mateItem of homePgItemsCl.dummyTrending" class="trending-article">
+                        <div class="imgAndBadgeWrp">
+                            <img class="img-responsive" src="/Uploads/{{mateItem.itemPhotos[0].filename}}" />
+                            <span class="trending-items-badge">{{mateItem.itemCategory}}</span>
+                            <div class="title-on-image">
+                                <p class="trnd-itms-titleNcatLocWrp" style="color:#fff;">
+                                    <span class="trending-items-title"><a [routerLink]="['/state',mateItem.itemState,mateItem.itemCategory,mateItem.id]">{{mateItem.title}}</a></span>
+                                    <span class="trending-items-catAndLoc">
+                                        <a [routerLink]="['/state', mateItem.itemState, mateItem.itemCategory]">{{mateItem.itemCategory}}</a>
+                                        <a [routerLink]="['/state', mateItem.itemState]">{{mateItem.itemState}}</a>
+                                        <span class="pull-right time-posted"><i class="fa fa-clock-o"></i> {{mateItem.datePosted | timeAgo}}</span>
+                                    </span>
+                                </p>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+
+
+<div *ngIf="!homePgItemsCl" style="text-align:center;">
+    No item to display, probably your internet connection has stopped working.
+</div>
+<!--</div>-->

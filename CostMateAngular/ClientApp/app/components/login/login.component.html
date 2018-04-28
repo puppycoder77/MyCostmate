@@ -1,0 +1,112 @@
+﻿
+<div *ngIf="!alreadyLogeddIn">
+    <div class="col-md-3 hidden-sm"></div>
+    <div class="col-md-6 col-sm-12 login-form-parent">
+        <section class="login-form well well-lg" style="margin-bottom:0;">
+            <h4>Login Form</h4>
+            <div>
+                <form [formGroup]="loginFormGroup" novalidate (ngSubmit)="loginAndNavigate(loginFormGroup.value)">
+                    <div class="form-group form-group-lg" [ngClass]="{'has-error': (loginFormGroup.get('email').touched ||
+                                                loginFormGroup. get('email').dirty) &&
+                                                !loginFormGroup.get('email').valid }">
+
+                        <input type="text" placeholder="Email" class="form-control" formControlName="email" />
+                        <span class="text-danger" *ngIf="(loginFormGroup.get('email').touched ||
+                                                         loginFormGroup.get('email').dirty) &&
+                                                         loginFormGroup.get('email').errors">
+                            <span *ngIf="loginFormGroup.get('email').errors.required">
+                                Please enter email.
+                            </span>
+                            <span *ngIf="loginFormGroup.get('email').errors.pattern">
+                                Enter a valid email.
+                            </span>
+                        </span>
+                    </div>
+
+                    <div class="form-group form-group-lg" [ngClass]="{'has-error': (loginFormGroup.get('password').touched ||
+                                                loginFormGroup. get('password').dirty) &&
+                                                !loginFormGroup.get('password').valid }">
+                        <input type="password" placeholder="Password" class="form-control"  formControlName="password"/>
+                        <span class="text-danger" *ngIf="(loginFormGroup.get('password').touched ||
+                                                         loginFormGroup.get('password').dirty) &&
+                                                         loginFormGroup.get('password').errors">
+                            <span *ngIf="loginFormGroup.get('password').errors.required">
+                                Please enter password.
+                            </span>
+                            <span *ngIf="loginFormGroup.get('password').errors.minlength">
+                                Password must be longer than 6 characters.
+                            </span>
+                        </span>
+                    </div>
+
+                    <div class="row">
+                        <p class="col-md-6" id="noAcc"><span>No Account</span> <a [routerLink]="['/signup']" id="sgnup">Signup</a></p>
+                        <p class="col-md-6" id="fgPswd"><span (click)="forgottenPassword()">Forgot password?</span></p>
+                    </div>
+
+                    <div id="feedbacks">
+                        <p *ngIf="submittedEmptyValue" class="text-center">
+                            <alert type="success" [dismissible]="dismissible">
+                                You are trying to submit an empty value
+                            </alert>
+                        </p>
+
+                        <p *ngIf="contactingServer && !loginSuccess && !emailOrPswdInvalid && !submittedEmptyValue" class="text-center">
+                            <alert type="success" [dismissible]="dismissible">
+                                <img src="/Images/Loading.png" class="loadingImg" /> Submitting your data please wait.
+                            </alert>
+                        </p>
+
+                        <p *ngIf="!contactingServer && loginSuccess" class="text-center">
+                            <alert type="success" [dismissible]="dismissible">
+                                <img src="/Images/Loading.png" class="loadingImg" /> Login Successful, moving home....
+                            </alert>
+                        </p>
+
+                        <p *ngIf="emailOrPswdInvalid && loginFormGroup.valid && contactingServer" class="text-center">
+                            <alert type="success" [dismissible]="dismissible">
+                                {{emailOrPswdInvalid}}
+                            </alert>
+                        </p>
+
+                        <p *ngIf="!contactingServer && !emailVerified && showEmailVerificationMsg" class="text-center">
+                            <alert type="success" [dismissible]="dismissible">
+                               You have not verified your email address, go to your mail and click the confirmation link we sent to you.
+                            </alert>
+                        </p>
+                    </div>
+
+                    <div class="form-group form-group-lg">
+                        <input type="submit" value="Sign in" class="btn btn-warning btn-block form-control" [disabled] ="!loginFormGroup.valid" />
+                    </div>
+                </form>
+                
+            </div>
+        </section>
+
+        <section class="social-logins">
+            <span style="text-align:center;color:#afafaf;font-style:italic;">Or login with</span>
+            <ul class="list-inline social-share-icons">
+                <li>
+                    <a (click)="loginWithFacebook($event)"><i class="fa fa-facebook"></i></a>
+                    <span style="display:block;color:#ccc;">Facebook</span>
+                </li>
+                <li>
+                    <a (click)="loginWithTwitter($event)"><i class="fa fa-twitter"></i></a>
+                    <span style="display:block;color:#ccc;">Twitter</span>
+                </li>
+                <li>
+                    <a (click)="loginWithGoogle($event)"><i class="fa fa-google"></i></a>
+                    <span style="display:block;color:#ccc;">Google</span>
+                </li>
+            </ul>
+        </section>
+    </div>
+
+    <div class="col-md-3 hidden-sm"></div>
+</div>
+
+<div *ngIf="alreadyLogeddIn" style="text-align:center">
+    <p style="font-size:20px;color:#333;margin-bottom:10px;">You are already logged in</p>
+    <button class="btn btn-info" (click)="logOut($event)">Logout</button>
+</div>

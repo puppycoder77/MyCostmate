@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CostMateAngular", "CostMateAngular\CostMateAngular.csproj", "{609A4BDE-74E0-4120-AABC-AA9FADAF3ED9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CostMateAngular.Data", "CostMateAngular.Data\CostMateAngular.Data.csproj", "{ED6DAF3D-AC5A-487A-B5F8-4B945683DC3C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{609A4BDE-74E0-4120-AABC-AA9FADAF3ED9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{609A4BDE-74E0-4120-AABC-AA9FADAF3ED9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{609A4BDE-74E0-4120-AABC-AA9FADAF3ED9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{609A4BDE-74E0-4120-AABC-AA9FADAF3ED9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED6DAF3D-AC5A-487A-B5F8-4B945683DC3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED6DAF3D-AC5A-487A-B5F8-4B945683DC3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED6DAF3D-AC5A-487A-B5F8-4B945683DC3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED6DAF3D-AC5A-487A-B5F8-4B945683DC3C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8D73FF4F-3153-4194-B42C-07152ED88E01}
+	EndGlobalSection
+EndGlobal

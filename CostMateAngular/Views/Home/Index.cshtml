@@ -1,0 +1,34 @@
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+@* Getting error because of this prerender-module so i commented it out *@
+@*<app xasp-prerender-module="ClientApp/dist/main-server">O Looadu ga...</app>*@
+
+<app xasp-prerender-module="ClientApp/dist/main-server">
+    @*<p  style="text-align:center;font-weight:bold;font-size:20px;color:#999;margin-top:50%;margin-bottom:50%">
+           Loading...
+        </p>*@
+
+    <div id="loading-wrapper">
+        <div style="margin-top:150px;height:50px;">
+            @*<p id="firstPara"><img src="~/Images/Logo-For-Loading-Screen.png" /></p>*@
+            @*<p id="secondPara">Loading...</p>*@
+            @*<div class="loader"></div>*@
+            <div class="signal"></div>
+        </div>
+
+    </div>
+
+</app>
+
+@section styles{
+    @* STYLE FOR LOADING SCREEN *@
+    <link href="~/dist/LoadingScreen.css" rel="stylesheet" />
+}
+
+<script src="~/dist/vendor.js" asp-append-version="true"></script>
+@section scripts {
+    <script src="~/dist/main-client.js" asp-append-version="true"></script>
+}

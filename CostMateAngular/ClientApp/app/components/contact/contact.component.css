@@ -1,0 +1,40 @@
+﻿.contact-h4, .contact-form h4 {
+    font-weight: bold;
+    color: #999;
+    font-family: fradmcn;
+}
+
+.contact-form h4 {
+    padding-top: 5px;
+    padding-bottom: 40px;
+    font-size: 30px;
+}
+
+#phnAndEmails {
+    margin-top: 60px;
+}
+
+.btn-warning {
+    font-size: 16px;
+    max-width: 200px;
+    margin-top: 60px;
+    height: 60px;
+    line-height: 45px;
+}
+
+.well {
+    background-color: #fff;
+    padding-left: 60px;
+    padding-right: 60px;
+}
+
+p {
+    font-family: kalinga;
+}
+
+@media  (max-width: 768px) {
+    .well {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}

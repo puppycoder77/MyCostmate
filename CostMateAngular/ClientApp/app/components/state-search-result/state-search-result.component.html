@@ -1,0 +1,49 @@
+﻿<!--<span>Searched with: {{receivedParam}}</span>-->
+
+<div class="row">
+    <!--<span class="pull-left" id="search-info">Found 23 Real Estate in Lagos</span>--><!--<span class="pull-right" id="sort-by">Found 23 Real Estate in Lagos</span>-->
+    <!--<div class="col-md-2 col-sm-12 innerDivWrapper">
+    </div>-->   
+
+    <!--id: number;
+    datePosted: Date;-->
+
+        <div *ngIf="mateItemClArr" class="col-md-12 col-sm-12 innerDivWrapper">
+            <span id="search-info">
+                Found {{mateItemClArr.length}} 
+                <span *ngIf="hasCatParam" style="text-transform:capitalize;">{{paramName}} </span>
+                <span *ngIf="!hasCatParam">items </span>
+                in <span style="text-transform:capitalize;">{{paramState}}</span> state
+            </span>
+            <!--<p id="sort-by">Sort by: <span id="newest">Newest</span></p>-->
+            <div class="clearfix"></div>
+            <section class="inner latest" style="width:100%;height:auto;">
+                <div *ngFor="let mateItem of mateItemClArr  | paginate: { itemsPerPage: 4, currentPage: p }" class="row item-on-latest-list">
+                    <div class="col-md-3 col-sm-12 state-search-img-wrp">
+                        <img *ngIf="mateItem.itemPhotos[0]" src="/Uploads/{{mateItem.itemPhotos[0]?.filename}}" class="img-responsive row-image" />
+                        <img *ngIf="!mateItem.itemPhotos[0]" src="/Images/Dummies/Picture.png" class="img-responsive row-image" />
+                    </div>
+                    <div class="col-md-9 col-sm-12 desc-wrapper">
+                        <h4><a [routerLink]="['/state',mateItem.itemState,mateItem.itemCategory,mateItem.id]">{{mateItem.title}}</a> </h4>
+                        <p class="res-item-desc">{{mateItem.description}}</p>
+                        <span class="CatAndLocation">
+                        <a [routerLink]="['/state', mateItem.itemState, mateItem.itemCategory]">{{mateItem.itemCategory}}</a> <a [routerLink]="['/state',mateItem.itemState]">{{mateItem.itemState}}</a>
+                            <span class="pull-right time-posted"><i class="fa fa-clock-o"></i> {{mateItem.datePosted | timeAgo}}</span>
+                        </span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- TESTING PAGINATION -->
+            <div style="margin-top:30px;">
+                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+            </div>
+            <!-- END OF TESTING PAGINATION -->
+
+        </div>
+
+        <div *ngIf="!mateItemClArr" id="no-result-wrp">
+            <p id="noContentMsg">Your search has no result</p>
+            <input (click)="goBack()" type="button" value="GO BACK" class="btn btn-info" />
+        </div>
+</div>

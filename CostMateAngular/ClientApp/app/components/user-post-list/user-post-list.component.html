@@ -1,0 +1,29 @@
+﻿<div *ngIf="postedItems?.length != 0" id="justToaveIf">
+    <alert *ngIf="deletedMsg" type="info" [dismissible]="true" dismissOnTimeout="2000" (onClosed)="alertClosed()">
+        {{deletedMsg}}
+    </alert>
+    <section class="inner latest" *ngFor="let postedItem of postedItems  | paginate: { itemsPerPage: 3, currentPage: p }">
+        <div class="row item-on-latest-list">
+            <div class="col-md-3 col-sm-12 state-search-img-wrp">
+                <img *ngIf="postedItem.itemPhotos[0]" src="/Uploads/{{postedItem.itemPhotos[0].filename}}" class="row-image" />
+                <img *ngIf="!postedItem.itemPhotos[0]" src="/Images/Dummies/Picture.png" class="row-image" />
+            </div>
+            <div class="col-md-9 col-sm-12 desc-wrapper">
+                <h4 style="font-size:15px;font-weight:bold;margin-bottom:3px;"><a [routerLink]="[postedItem.id]">{{postedItem.title}}</a></h4>
+                <p>{{postedItem.description}}</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTING PAGINATION -->
+    <div style="margin-top:10px;">
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    </div>
+    <!-- END OF TESTING PAGINATION -->
+
+
+</div>
+
+<div *ngIf="postedItems?.length == 0">
+    <p id="noPublishedItemMsg">You have no published item at the moment</p>
+</div>

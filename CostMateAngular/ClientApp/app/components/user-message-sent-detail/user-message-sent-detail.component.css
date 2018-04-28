@@ -1,0 +1,109 @@
+﻿.sender-img-wrp {
+    margin-right: -5px !important;
+}
+
+.msg-usrname {
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    text-transform: capitalize;
+    font-size: 20px;
+    font-weight: bold;
+    background: #ccc;
+    padding: 11px;
+    border-radius: 30px;
+    color: #fff;
+}
+
+#edit-delete a {
+    color: #5cb85c !important;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.inner.latest {
+    /*width: 100%;*/
+    height: auto;
+    padding-left: 30px;
+}
+
+.innerDivWrapper.col-md-12, .innerDivWrapper.col-sm-12 {
+    height: auto;
+}
+
+.item-on-latest-list .col-md-3 {
+    width: 8% !important;
+    margin-top: 10px;
+    margin-right: 20px;
+}
+
+a {
+    color: #333;
+}
+
+.item-on-latest-list .col-sm-12 {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+.row-image {
+    max-height: 80px;
+}
+
+.item-on-latest-list {
+    background-color: #fff;
+    margin-right: 1px;
+    margin-left: 1px;
+    margin-bottom: 10px;
+}
+
+    .item-on-latest-list img {
+        min-height: 60px;
+        width: 60px;
+        max-width: 100%;
+        border-radius: 50px;
+    }
+
+@media (max-width: 768px) {
+    .item-on-latest-list img {
+        padding-left: 20% !important;
+        padding-right: 20% !important;
+        float: none;
+        max-width: 80px;
+        max-height: 80px;
+        margin-right: 0 !important;
+        padding-right: 0 !important;
+    }
+
+    .msg-usrname {
+        float: left;
+        width: 35px;
+        height: 35px;
+        margin-top: 10px;
+        margin-right: 10px;
+        font-size: 20px;
+        padding: 0; /*This is to remove previously added padding on desktop size*/
+        padding-top: 5px;
+    }
+
+    .desc-wrapper {
+        margin-left: 10px !important;
+        margin-right: 10px !important;
+        margin-bottom: 10px !important;
+    }
+}
+
+.list-group-item {
+    background-color: #ddd;
+    border: none !important;
+}
+
+#replyNdelete {
+    margin-top: 60px;
+    color: #1db164;
+    font-size: 18px;
+}
+
+    #replyNdelete .glyphicon {
+        cursor: pointer;
+    }

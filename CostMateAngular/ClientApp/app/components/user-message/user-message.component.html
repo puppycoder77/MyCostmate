@@ -1,0 +1,9 @@
+﻿<!--<div style="border: 1px solid red">UserMessage Component</div>-->
+
+<p style="text-align:center;margin-bottom:20px;padding-bottom:20px;padding-top: 30px;">
+    <span [routerLinkActive]="['link-active']"><a [routerLink]="['received']">Received</a></span>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <span [routerLinkActive]="['link-active']"><a [routerLink]="['sent']">Sent</a></span>
+</p>
+
+<router-outlet></router-outlet>

@@ -1,0 +1,38 @@
+﻿<!--<div style="border: 1px solid red">UserMessageReceivedDetail Component</div>-->
+<section class="inner latest">
+    <div class="row item-on-latest-list">
+        <div class="col-md-3 col-sm-12 sender-img-wrp">
+            <!--<img src="/Images/Dummies/ContainerTruck.jpg" class=" row-image" />-->
+            <p class="text-muted msg-usrname" [innerHTML]="getFirstLetter(userMessageDetail.receiver.fullname)"></p>
+        </div>
+        <div class="col-md-9 col-sm-12 desc-wrapper">
+            <h4 style="font-size:15px;margin-bottom:-3px;">{{userMessageDetail.titleExtractedFromItemTitle}}</h4>
+            <span class="text-muted" style="font-size:11px;font-style:italic">To: {{userMessageDetail.receiver.fullname}}</span>
+            <p style="color:#666;">
+                {{userMessageDetail.body}}
+            </p>
+        </div>
+    </div>
+    <!--<ul class="list-unstyled list-inline pull-right" id="edit-delete">
+        <li><a (click)="sendSenderIdtoApiService($event)" [routerLink]="['reply']"><span class="fa fa-reply" title="Reply"></span></a></li>
+        <li>|</li>
+        <li><a href="#"><span class="glyphicon glyphicon-trash" title="Delete" (click)="openDialogBox(template, $event)"></span></a></li>
+    </ul>-->
+</section>
+
+<!-- Modal Box, But i don't really need this for sen t message detail.Maybe delete later -->
+<!--<ng-template #template>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left text-muted">Delete Message</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        You are going to permanently delete this message, are you sure?
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-warning" (click)="deleteMessage(userMessageDetail.id)">Delete</button>
+        <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Close</button>
+    </div>
+</ng-template>-->

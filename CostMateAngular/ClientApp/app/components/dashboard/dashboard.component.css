@@ -1,0 +1,124 @@
+﻿#dashboard-sidebar {
+    position: fixed !important;
+    left: 70px !important;
+    top: 180px !important;
+
+}
+
+    #dashboard-sidebar a, #dashboard-sidebar-sm-screen a {
+        text-decoration: none;
+        color: #333;
+        /*color: #1db164;*/
+    }
+
+#dashboard-sidebar-sm-screen {
+    display: none;
+    text-align: center;
+    /*position: fixed;
+    z-index: 500;
+    left: 5%;
+    right: 5%;*/
+}
+
+#outlet-wrapper {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-top: 20px !important;
+    margin-bottom: 40px !important;
+    background-color: #fff;
+    min-height: 200px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    -moz-box-shadow: 0px 0px 6px 0px #999;
+    -webkit-box-shadow: 0px 0px 6px 0px #999;
+    box-shadow: 0px 0px 6px 0px #999;
+}
+
+.list-group-item {
+background-color: transparent; 
+ border: none; 
+ font-size:15px;
+}
+
+.link-active {
+    font-weight: bold;
+    /*padding:5px;*/
+    /*margin-right: 20px;*/
+    /*background-color: #aab69b;*/
+    border: 1px solid #aab69b;
+    padding: 10px;
+}
+
+    .link-active a {
+        /*color: #aab66e !important;*/
+        /*color: #fff !important;*/
+        color: #aab66e !important;
+    }
+
+@media (max-width: 768px) {
+    #outlet-wrapper {
+        margin-top: 40px !important;
+        padding-bottom: 40px;
+        width: 100%;
+        padding-left: 0;
+    }
+
+    .link-active {
+        /*border: 1px solid #aab69b;*/
+        border: none;
+        /*padding: 10px;*/
+        padding: 0;
+        padding: 0;
+        /*#989898*/
+    }
+
+        .link-active a {
+            color: #aab66e !important;
+            /*color: #d7ec6a !important;*/
+        }
+
+    .list-group-item {
+        font-size: 13px;
+        padding-right: 3px;
+        padding-left: 3px;
+    }
+
+    #dashboard-sidebar {
+       display:none;
+    }
+
+    #dashboard-sidebar {
+        position: static !important;
+    }
+
+    #dashboard-sidebar {
+        float: none !important;
+    }
+
+    #dashboard-sidebar-sm-screen {
+        display: block;
+        /*TODO:Start of fixed position experiment(Might be removed later)*/
+        position: fixed;
+        z-index: 10;
+        left: 8%;
+        /*TODO:End of fixed position experiment*/
+        background-color: #ececec;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        margin-top: -20px;
+        height: 40px;
+    }
+
+        #dashboard-sidebar-sm-screen a {
+            /*color:#fff;*/
+            color: #333;
+        }
+
+        #dashboard-sidebar-sm-screen .list-group-item a {
+            padding-left: 5px;
+            padding-right: 5px;
+        }
+
+
+}

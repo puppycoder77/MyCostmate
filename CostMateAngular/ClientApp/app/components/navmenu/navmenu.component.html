@@ -1,0 +1,187 @@
+<!--<div class='main-nav'>-->
+    <div class='navbar navbar-inverse'>
+        <div class="container">
+            <div class='navbar-header'>
+                <a class='navbar-brand' [routerLink]="['/home']">
+                    <img src="/Images/LogoForWeb.png" />
+                </a>
+
+                    <!--<span (click)="openSearchBar()" class="fa fa-search open-search-bar" style="float:right;margin-left:30px;"></span>-->
+
+                <button *ngIf="!sidebarShowing" (click)="openSideBar()" type='button' class='navbar-toggle'>
+                    <span class='sr-only'>Toggle navigation</span>
+                    <span class='icon-bar'></span>
+                    <span class='icon-bar'></span>
+                    <span class='icon-bar'></span>
+                </button>
+
+                <button *ngIf="sidebarShowing" (click)="closeSideBar()" type='button' class='navbar-toggle' style="z-index:1000;">
+                    <span class='sr-only'>Toggle navigation</span>
+                    <span class="glyphicon glyphicon-remove" style="color:#fff;"></span>
+                </button>
+
+                <!--//////////////// Sidebar simulation /////////////////////////////-->
+                <div id="sidebar-right" class="hidden-lg hidden-md">
+                    <ul class="list-unstyled" style="margin-right:20px;margin-bottom:40px;">
+                        <li [routerLinkActive]="['link-active']">
+                            <a (click)="closeSideBar()" [routerLink]="['/newitem']">
+                                <span type="button" class="btn btn-block btn-success btn-place-ad"><i class='glyphicon glyphicon-plus-sign'></i>Place your ad</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- Sidebar user menu area -->
+                    <ul *ngIf="currentUserEmail" class="list-unstyled" id="user-menu-sidebar">
+                        <li id="curremailLi">
+                            <span style="color:#c6e4c6;display:block;">
+                                {{currentUserEmailFull}}
+                            </span>
+                        </li>
+                        <li>
+                            <a (click)="closeSideBar($event)" [routerLink]="['/dashboard']" style="cursor:pointer">
+                                <span class="glyphicon glyphicon-user"></span> Profile
+                            </a>
+                        </li>
+                        <li>
+                            <a (click)="closeSideBar($event)" [routerLink]="['/dashboard/message']" style="cursor:pointer">
+                                <span class="glyphicon glyphicon-envelope"></span> Messages
+                            </a>
+                        </li>
+                        <li>
+                            <a (click)="closeSideBar($event)" [routerLink]="['/dashboard/post']" style="cursor:pointer">
+                                <span class="glyphicon glyphicon-file"></span> Published items
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="list-unstyled">
+                        <li *ngIf="currentUserEmail">
+                            <span id="logout-wrp-side">
+                                <a (click)="logOut($event)" style="cursor:pointer;border-bottom:none;">
+                                    <span class="glyphicon glyphicon-log-out"></span> Logout
+                                </a>
+                            </span>
+                        </li>
+                        <li *ngIf="!currentUserEmail">
+                            <span id="logout-wrp-side">
+                                <a (click)="closeSideBar($event)" [routerLink]="['/signin']" style="cursor:pointer">
+                                    <span class="glyphicon glyphicon-lock"></span> Login
+                                </a>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+                <div id="overlay" (click)="closeSideBar()" class="hidden-lg hidden-md"></div>
+                <!--////////////// End of sidebar simulation //////////////////////////-->
+
+                <!-- New insertion of search bar here -->
+                <div class="srch-bar-wrp">
+                    <div id="Qk-srch-wrp">
+                        <input type="search" class="form-control navbar-form srch-bar" autocapitalize="off" placeholder="Quick item search" (keyup)="retrieveMatch(srchbarInput)" #srchbarInput />
+                        <span id="combi-srch-link">Switch to combined search <i class="fa fa-toggle-off"></i></span>
+                        <div id="suggestion-drpdwn" *ngIf="hasResult">
+                            <i class="glyphicon glyphicon-remove-circle" id="sugg-drpdwn-close" (click)="clearSrchBar($event, srchbarInput)"></i>
+                            <span *ngFor="let srcRes of searchResult" id="srchresultSpan">
+                                <a (click)="clearSrchBar($event, srchbarInput)" [routerLink]="['/state',srcRes.itemState,srcRes.itemCategory,srcRes.id]" [innerHTML]=" srcRes.title.toLowerCase().replace(srchbarInput.value,srchbarInput.value.bold().fontcolor('#63ca63'))">
+                                    <!--Using [innerHTML] to avoid angular redering <b> tag for the .bold()-->
+                                </a>
+                            </span>
+                        </div>
+                    </div>
+                       
+                       <!-- Moved Combined Search from app Component to here  -->
+                    <div class="combinedSearchParent">
+                            <!--<input type="search" class="form-control srch-bar" placeholder="Search for an item" style="margin-bottom:10px;" />-->
+                            <div class="row">
+                                <div class="col-lg-10 col-md-12">
+                                    <form [formGroup]="searchFormGroup" novalidate (ngSubmit)="searchAndNavigate(searchFormGroup.value)">
+                                        <section>
+                                            <!--<span class=""><a id="advLinkCat">Category</a></span>-->
+                                            <ul class="list-inline" id="catAndStateList">
+                                                <li>
+                                                    <select class="form-control top-select" formControlName="itemCategory">
+                                                        <option disabled value="">Select Category</option>
+                                                        <option *ngFor="let cats of allcats" value='{{cats.toLowerCase().replace(" ","-")}}'>{{cats}}</option>
+                                                    </select>
+                                                </li>
+                                                <li>
+                                                    <select class="form-control top-select" formControlName="itemState">
+                                                        <option disabled value="">Select state</option>
+                                                        <option *ngFor="let state of allNigState" value='{{state.toLowerCase().replace(" ","-")}}'>{{state}}</option>
+                                                    </select>
+                                                </li>
+                                                <!--<li class="btnSearchCombi-Wrp hidden-sm hidden-md">
+                                    <button type="submit" class="btn btn-warning btn-md btnSearchCombi" [disabled]="!searchFormGroup.valid">Search</button>
+                                </li>-->
+                                                <li class="btnSearchCombi-Wrp">
+                                                    <button type="submit" class="btn btn-warning btn-md btnSearchCombi" [disabled]="!searchFormGroup.valid">
+                                                        <span class="glyphicon glyphicon-search"></span>
+                                                    </button>
+                                                </li>
+                                            </ul>
+                                        </section>
+                                    </form>
+                                </div>
+                                
+                            </div>
+                        <span id="qk-srch-link">Switch to quick search <i class="fa fa-toggle-on"></i></span>
+                    </div>
+                    <!-- End of Combined Search new insertion point -->
+                    
+                </div>
+                <!-- End of new insertion -->
+            </div>
+            <!--<div class='clearfix'></div>-->
+            <div class='navbar-collapse collapse'>
+                <ul class='nav navbar-nav'>
+                    <li [routerLinkActive]="['link-active']">
+                        <a [routerLink]="['/newitem']">
+                            <span type="button" class="btn btn-success"><span class='glyphicon glyphicon-plus-sign'></span>Place your ad</span>
+                        </a>
+                    </li>
+                    <li>
+                        <div *ngIf="currentUserEmail" id="user-drpdwn-wrp">
+                            <!--<span class='glyphicon glyphicon-user' id="user-ic"></span>-->
+                            <a>
+                                {{currentUserEmail}}
+                               
+                                <span class='glyphicon glyphicon-chevron-down chevy-down' style="cursor:pointer;" *ngIf="!drpdwnDisplaying">
+                                </span>
+
+                                <span class='glyphicon glyphicon-chevron-up chevy-up' *ngIf="drpdwnDisplaying"></span>
+
+
+                                <!--<span class='glyphicon glyphicon-chevron-down chevy-down' (click)="showUserMenu($event)" style="cursor:pointer;" *ngIf="!drpdwnDisplaying">
+                                </span>
+
+                                <span class='glyphicon glyphicon-chevron-up chevy-up' (click)="hideUserMenu($event)" *ngIf="drpdwnDisplaying"></span>-->
+                            </a>
+
+                            <p id="user-drpdwn" #UserDrpdwn>
+                                <a (click)="hideUserMenu($event)" [routerLink]="['/dashboard']">
+                                    <span class="glyphicon glyphicon-user"></span>Profile
+                                </a>
+                                <a (click)="hideUserMenu($event)" [routerLink]="['/dashboard/message']">
+                                    <span class="glyphicon glyphicon-envelope"></span>Messages
+                                </a>
+                                <a (click)="hideUserMenu($event)" [routerLink]="['/dashboard/post']">
+                                    <span class="glyphicon glyphicon-file"></span>Published items
+                                </a>
+                                <span id="logout-wrp">
+                                    <a (click)="logOut($event)" style="cursor:pointer;border-bottom:none;">
+                                        <span class="glyphicon glyphicon-log-out"></span> Logout
+                                    </a>
+                                </span>
+                                
+                            </p>
+                        </div>
+                    </li>
+                   
+                    <li [routerLinkActive]="['link-active']" style="margin-top: 8px;">
+                        <a [routerLink]="['/signin']" style="cursor:pointer" *ngIf="!currentUserEmail">
+                            <span class="glyphicon glyphicon-lock"></span> Login
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+<!--</div>-->

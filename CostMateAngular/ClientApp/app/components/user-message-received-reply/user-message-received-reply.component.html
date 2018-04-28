@@ -1,0 +1,27 @@
+﻿<!--<div style="border: 1px solid red">UserMessageReceivedReply Component</div>-->
+
+<section class="contact-form">
+    <h4 id="snd-msg-title">{{msgTitle}}</h4>
+    <div>
+        <form [formGroup]="replyMsgFormGroup" novalidate (ngSubmit)="sndMsgAndNotify(replyMsgFormGroup.value)">
+            <div class="form-group form-group-sm" [ngClass]="{'has-error': (replyMsgFormGroup.get('message').touched ||
+                                                replyMsgFormGroup.get('message').dirty) &&
+                                                !replyMsgFormGroup.get('message').valid }">
+                <textarea placeholder="Message" class="form-control" rows="10" formControlName="message"></textarea>
+                <span class="text-danger" *ngIf="(replyMsgFormGroup.get('message').touched ||
+                                                         replyMsgFormGroup.get('message').dirty) &&
+                                                         replyMsgFormGroup.get('message').errors">
+                    <span class="text-danger" *ngIf="replyMsgFormGroup.get('message').errors.required">
+                        Message is needed.
+                    </span>
+                </span>
+            </div>
+
+            <div class="form-group form-group-sm">
+                <input type="submit" class="btn btn-warning center-block" value="Send message" [disabled]="!replyMsgFormGroup.valid" />
+            </div>
+        </form>
+
+    </div>
+
+</section>

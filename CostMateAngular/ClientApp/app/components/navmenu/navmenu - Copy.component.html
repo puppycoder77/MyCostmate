@@ -1,0 +1,148 @@
+<!--<div class='main-nav'>-->
+    <div class='navbar navbar-inverse'>
+        <div class="container">
+            <div class='navbar-header'>
+                <a class='navbar-brand' [routerLink]="['/home']">
+                    <img src="/Images/LogoForWeb.png" />
+                </a>
+                <!--<button type='button' class='navbar-toggle' data-toggle='collapse' data-target='.navbar-collapse'>
+                    <span class='sr-only'>Toggle navigation</span>
+                    <span class='icon-bar'></span>
+                    <span class='icon-bar'></span>
+                    <span class='icon-bar'></span>
+                </button>-->
+                <button *ngIf="!sidebarShowing" (click)="openSideBar()" type='button' class='navbar-toggle'>
+                    <span class='sr-only'>Toggle navigation</span>
+                    <span class='icon-bar'></span>
+                    <span class='icon-bar'></span>
+                    <span class='icon-bar'></span>
+                </button>
+
+                <button *ngIf="sidebarShowing" (click)="closeSideBar()" type='button' class='navbar-toggle' style="z-index:1000;">
+                    <span class='sr-only'>Toggle navigation</span>
+                    <span class="glyphicon glyphicon-remove" style="color:#fff;"></span>
+                </button>
+
+                <!--//////////////// Sidebar simulation /////////////////////////////-->
+                <div id="sidebar-right" class="hidden-lg hidden-md">
+                    <ul class="list-unstyled">
+                        <li [routerLinkActive]="['link-active']" style="margin-right:20px;">
+                            <a [routerLink]="['/newitem']">
+                                <span type="button" class="btn btn-success"><span class='glyphicon glyphicon-plus-sign'></span>Post new Item</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- User menu area -->
+                    <ul class="list-unstyled">
+                        <li>
+                            <div >
+                                <a style="color:#fff;">
+                                    {{currentUserEmail}}
+                                </a>
+
+                                <p id="user-drpdwn-side">
+                                    <a (click)="hideUserMenu($event)" [routerLink]="['/dashboard']" style="cursor:pointer">
+                                        <span class="glyphicon glyphicon-user"></span> Profile
+                                    </a>
+                                    <a (click)="hideUserMenu($event)" [routerLink]="['/dashboard/message']" style="cursor:pointer">
+                                        <span class="glyphicon glyphicon-envelope"></span> Messages
+                                    </a>
+                                    <a (click)="hideUserMenu($event)" [routerLink]="['/dashboard/post']" style="cursor:pointer">
+                                        <span class="glyphicon glyphicon-file"></span> Published items
+                                    </a>
+                                    <span id="logout-wrp">
+                                        <a (click)="logOut($event)" style="cursor:pointer;border-bottom:none;">
+                                            <span class="glyphicon glyphicon-log-out"></span> Logout
+                                        </a>
+                                    </span>
+
+                                </p>
+                            </div>
+                        </li>
+
+                        <li [routerLinkActive]="['link-active']">
+                            <a [routerLink]="['/signin']" style="cursor:pointer" *ngIf="!currentUserEmail">
+                                <span class="glyphicon glyphicon-lock"></span> Login
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div id="overlay" class="hidden-lg hidden-md"></div>
+                <!--////////////// End of sidebar simulation //////////////////////////-->
+
+                <!-- New insertion of search bar here -->
+                <div class="srch-bar-wrp">
+                    <input type="search" class="form-control navbar-form srch-bar" placeholder="Quick search for an item" (keyup)="retrieveMatch(srchbarInput)" #srchbarInput />
+                    <div id="suggestion-drpdwn" *ngIf="hasResult">
+                        <i class="glyphicon glyphicon-remove-circle" id="sugg-drpdwn-close" (click)="clearSrchBar($event, srchbarInput)"></i>
+                        <span *ngFor="let srcRes of searchResult" id="srchresultSpan">
+                            <a (click)="clearSrchBar($event, srchbarInput)" [routerLink]="['/state',srcRes.itemState,srcRes.itemCategory,srcRes.id]" [innerHTML]=" srcRes.title.toLowerCase().replace(srchbarInput.value,srchbarInput.value.bold().fontcolor('#63ca63'))">
+                                <!--Using [innerHTML] to avoid angular redering <b> tag for the .bold()-->
+                            </a>
+                        </span>
+                        <!--<p *ngIf="!hasResult && valOnSrchbar">
+                                <a>No result to show</a>
+                            </p>
+                             <p *ngIf="!valOnSrchbar">
+                              </p>-->
+                    </div>
+                </div>
+                
+                <!-- End of new insertion -->
+            </div>
+            <!--<div class='clearfix'></div>-->
+            <div class='navbar-collapse collapse'>
+                <ul class='nav navbar-nav'>
+                    <li [routerLinkActive]="['link-active']" style="margin-right:20px;">
+                        <a [routerLink]="['/newitem']">
+                            <span type="button" class="btn btn-success"><span class='glyphicon glyphicon-plus-sign'></span>Post new Item</span>
+                        </a>
+                    </li>
+                    <li>
+                        <div *ngIf="currentUserEmail" id="user-drpdwn-wrp">
+                            <!--<span class='glyphicon glyphicon-user' id="user-ic"></span>-->
+                            <a>
+                                {{currentUserEmail}}
+                               
+                                <span class='glyphicon glyphicon-chevron-down chevy-down' style="cursor:pointer;" *ngIf="!drpdwnDisplaying">
+                                </span>
+
+                                <span class='glyphicon glyphicon-chevron-up chevy-up' *ngIf="drpdwnDisplaying"></span>
+
+
+                                <!--<span class='glyphicon glyphicon-chevron-down chevy-down' (click)="showUserMenu($event)" style="cursor:pointer;" *ngIf="!drpdwnDisplaying">
+                                </span>
+
+                                <span class='glyphicon glyphicon-chevron-up chevy-up' (click)="hideUserMenu($event)" *ngIf="drpdwnDisplaying"></span>-->
+                            </a>
+
+                            <p id="user-drpdwn" #UserDrpdwn>
+                                <a (click)="hideUserMenu($event)" [routerLink]="['/dashboard']" style="cursor:pointer">
+                                    <span class="glyphicon glyphicon-user"></span> Profile
+                                </a>
+                                <a (click)="hideUserMenu($event)" [routerLink]="['/dashboard/message']" style="cursor:pointer">
+                                    <span class="glyphicon glyphicon-envelope"></span> Messages
+                                </a>
+                                <a (click)="hideUserMenu($event)" [routerLink]="['/dashboard/post']" style="cursor:pointer">
+                                    <span class="glyphicon glyphicon-file"></span> Published items
+                                </a>
+                                <span id="logout-wrp">
+                                    <a (click)="logOut($event)" style="cursor:pointer;border-bottom:none;">
+                                        <span class="glyphicon glyphicon-log-out"></span> Logout
+                                    </a>
+                                </span>
+                                
+                            </p>
+                        </div>
+                    </li>
+                   
+                    <li [routerLinkActive]="['link-active']">
+                        <a [routerLink]="['/signin']" style="cursor:pointer" *ngIf="!currentUserEmail">
+                            <span class="glyphicon glyphicon-lock"></span> Login
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+<!--</div>-->

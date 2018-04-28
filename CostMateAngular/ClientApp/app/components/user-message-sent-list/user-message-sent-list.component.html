@@ -1,0 +1,29 @@
+﻿<div *ngIf="userMessages?.length > 0">
+    <section class="inner latest" *ngFor="let userMsg of userMessages  | paginate: { itemsPerPage: 3, currentPage: p }" style="width:100%;height:auto;">
+        <div class="row item-on-latest-list">
+            <div class="col-md-3 col-sm-12 sender-img-wrp">
+                <!-- <img src="/Images/Dummies/ContainerTruck.jpg" class="row-image" />-->
+                <!--<img src="/Uploads/{{userMsg.forMateItem.itemPhotos[0].filename}}" class="row-image" />-->
+                <p class="text-muted msg-usrname" [innerHTML]="getFirstLetter(userMsg.receiver.fullname)"></p>
+            </div>
+            <div class="col-md-9 col-sm-12 desc-wrapper">
+                <!--<h4 *ngIf="!userMsg.hasBeenRead" style="font-size:15px;font-weight:bold;margin-bottom:-3px;"><a [routerLink]="[userMsg.id]">{{userMsg.titleExtractedFromItemTitle}}</a></h4>-->
+                <h4 style="font-size:15px;margin-bottom:-3px;"><a style="font-size:15px;color:#999;" [routerLink]="[userMsg.id]">{{userMsg.titleExtractedFromItemTitle}}</a></h4>
+
+                <p class="recvnameAndDate"><span class="text-muted">To: {{userMsg.receiver.fullname}}</span> | <span class="text-muted">{{userMsg.dateSent | date}}</span></p>
+                <p>{{userMsg.body}}</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTING PAGINATION -->
+    <div style="margin-top:30px;">
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    </div>
+    <!-- END OF TESTING PAGINATION -->
+
+</div>
+
+<div *ngIf="userMessages?.length == 0">
+    <p id="noMsgInfo">Your sent message list is empty</p>
+</div>

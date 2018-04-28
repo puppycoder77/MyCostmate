@@ -1,0 +1,39 @@
+﻿<section class="inner latest">
+
+    <!--<a (click)="goBackToList($event)" class="pull-right backAnchor"><span class="fa fa-arrow-circle-left"></span> All Item</a>-->
+    <p  class="pull-right"><span class="fa fa-arrow-circle-left"></span> <a [routerLink]="['/dashboard','post']" class="backAnchor"> All Item</a></p>
+
+    <div class="row item-on-latest-list">
+        <div class="col-md-3 col-sm-12 state-search-img-wrp">
+            <img *ngIf="mateItemCl?.itemPhotos[0]" src="/Uploads/{{mateItemCl.itemPhotos[0].filename}}" class="row-image" />
+            <img *ngIf="!mateItemCl?.itemPhotos[0]" src="/Images/Dummies/Picture.png" class="row-image" />
+        </div>
+        <div class="col-md-9 col-sm-12 desc-wrapper">
+            <h4 style="font-size:15px;font-weight:bold;margin-bottom:3px;">{{mateItemCl?.title}}</h4>
+            <p>{{mateItemCl?.description}}</p>
+        </div>
+    </div>
+
+    <ul class="list-unstyled list-inline pull-right" id="edit-delete">
+        <li><a [routerLink]="['edit']"><span class="glyphicon glyphicon-edit" title="Edit"></span></a></li>
+        <li>|</li>
+        <li><a href="#"><span class="glyphicon glyphicon-trash" title="Delete" (click)="openDialogBox(template, $event)"></span></a></li>
+    </ul>
+</section>
+
+<!-- Modal Box -->
+<ng-template #template>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left text-muted">Delete Item</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        You are going to permanently delete this item, are you sure?
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-warning" (click)="deleteItem(mateItemCl.id)">Delete</button>
+        <button type="button" class="btn btn-secondary" (click)="modalRef.hide()">Close</button>
+    </div>
+</ng-template>

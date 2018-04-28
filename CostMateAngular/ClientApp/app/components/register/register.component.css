@@ -1,0 +1,96 @@
+﻿@font-face {
+    font-family: 'kalinga';
+    src: url('/fonts/kalinga.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'fradmcn';
+    src: url('/Fonts/FRADMCN.TTF') format('truetype');
+}
+
+.login-form {
+    padding-bottom: 80px;
+}
+
+    .contact-h4, .login-form h4 {
+       
+        font-weight: bold;
+        color: #6a7072;
+    }
+
+    .login-form h4 {
+        padding-top: 5px;
+        padding-bottom: 40px;
+        font-size: 30px;
+    }
+
+.well {
+    background-color: #fff;
+    padding-right: 48px;
+    padding-left: 48px;
+}
+
+    select, input{
+        font-family:Kalinga;
+    }
+
+#noAcc #sgnup {
+    color: #339966;
+    cursor: pointer;
+}
+
+#noAcc {
+    font-size: 13px;
+    text-align:center;
+}
+
+.btn-warning {
+    font-size: 16px;
+    /*max-width: 200px;*/
+    margin-top: 60px;
+    margin-bottom:10px;
+    height: 80px;
+    line-height: 65px;
+}
+
+.social-logins {
+    background-color: #333;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    text-align: center;
+}
+
+
+.loadingImg {
+    width: 20px;
+    width: 20px;
+    -webkit-animation: spin 1000ms infinite linear;
+    animation: spin 1000ms infinite linear;
+}
+
+@media (max-width: 768px) {
+    .well {
+        padding-right: 30px;
+        padding-left: 30px;
+    }
+
+    .col-sm-12.reg-form-parent {
+        padding-right: 0 !important;
+        padding-left: 0 !important;
+    }
+
+    .login-form h4 {
+        font-family: fradmcn;
+        padding-top: 0;
+        padding-bottom: 20px;
+        font-size: 24px;
+        text-align: center;
+        color: #999;
+    }
+
+    @media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : landscape) {
+        .reg-form-parent.col-md-6 {
+            width: 80% !important;
+        }
+    }
+}

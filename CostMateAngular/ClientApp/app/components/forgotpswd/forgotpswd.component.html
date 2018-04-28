@@ -1,0 +1,58 @@
+﻿<div *ngIf="!hideForm">
+    <section class="login-form well well-lg" style="margin-bottom:0;">
+        <h4>Enter email used in registration</h4>
+        <div>
+            <form [formGroup]="pswdResetFormGroup" novalidate (ngSubmit)="sendPswdResetEmail(pswdResetFormGroup.value)">
+                <div class="form-group form-group-lg" [ngClass]="{'has-error': (pswdResetFormGroup.get('email').touched ||
+                                                pswdResetFormGroup. get('email').dirty) &&
+                                                !pswdResetFormGroup.get('email').valid }">
+
+                    <input type="text" placeholder="Email" class="form-control" formControlName="email" />
+                    <span class="text-danger" *ngIf="(pswdResetFormGroup.get('email').touched ||
+                                                         pswdResetFormGroup.get('email').dirty) &&
+                                                         pswdResetFormGroup.get('email').errors">
+                        <span *ngIf="pswdResetFormGroup.get('email').errors.required">
+                            Please enter email.
+                        </span>
+                        <span *ngIf="pswdResetFormGroup.get('email').errors.pattern">
+                            Enter a valid email.
+                        </span>
+                    </span>
+                </div>
+
+                <div id="feedbacks">
+                    <p *ngIf="submittedEmptyValue" class="text-center">
+                        <alert type="success" [dismissible]="dismissible">
+                            You are trying to submit an empty value
+                        </alert>
+                    </p>
+
+                    <!--<p *ngIf="!contactingServer && loginSuccess" class="text-center">
+                        <alert type="success" [dismissible]="dismissible">
+                            <img src="/Images/Loading.png" class="loadingImg" /> Sending email....
+                        </alert>
+                    </p>-->
+                </div>
+
+                <div class="form-group form-group-lg">
+                    <input type="submit" value="Submit" class="btn btn-warning btn-block form-control" [disabled]="!pswdResetFormGroup.valid" />
+                </div>
+            </form>
+
+        </div>
+    </section>
+</div>
+
+<p *ngIf="showSentMsg" class="text-center">
+    <alert type="success" [dismissible]="dismissible" id="emailrecoverinfo">
+       <!--Check your mail and follow sent link to recover your password-->
+        A registration confirmation mail has been sent to {{userEmail}}.<br/><br />
+        If you dont't see the mail in your inbox within some minutes, then check your junk/spam folder, and remember to mark it as "not a spam/junk."
+    </alert>
+</p>
+
+<p *ngIf="showErrorMsg" class="text-center">
+    <alert type="success" [dismissible]="dismissible">
+        An error has occured.
+    </alert>
+</p>

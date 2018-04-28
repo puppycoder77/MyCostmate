@@ -1,0 +1,15 @@
+﻿#snd-msg-title {
+    font-size: 16px;
+    color: #666;
+}
+
+@media (max-width: 768px) {
+    #snd-msg-title {
+       font-size:14px;
+       color:#666;
+    }
+
+    .contact-form {
+        padding-left: 15px !important;
+    }
+}

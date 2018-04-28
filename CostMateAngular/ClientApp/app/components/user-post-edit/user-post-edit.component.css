@@ -1,0 +1,46 @@
+﻿@font-face {
+    font-family: 'kalinga';
+    src: url('/fonts/kalinga.ttf') format('truetype');
+}
+
+.fa-arrow-circle-left {
+    font-size:16px;
+}
+
+.loadingImg {
+    width: 20px;
+    width: 20px;
+    -webkit-animation: spin 1000ms infinite linear;
+    animation: spin 1000ms infinite linear;
+}
+
+.backAnchor {
+    cursor: pointer;
+    display: inline-block;
+    margin-bottom: 20px;
+    font-size: 12px;
+    /*color: #9bb7bb !important;*/
+}
+
+.backAnchor:not(:first-child) {
+    margin-right: 20px;
+}
+
+#editForm {
+    margin: 20px 40px;
+}
+
+input, select, textarea{
+    font-family:Kalinga;
+    font-size:15px !important;
+}
+
+@media only screen and (max-width: 768px)  {
+    #editForm {
+        margin: 20px;
+    }
+
+    input, select, textarea {
+        font-size: 14px !important;
+    }
+}

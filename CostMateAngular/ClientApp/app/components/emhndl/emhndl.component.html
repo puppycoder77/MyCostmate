@@ -1,0 +1,88 @@
+﻿<!--div *ngIf="isQueryParamsComplete" style="border: 1px solid blue">
+    <p>paramMode: {{paramMode}}</p>
+    <p>paramOobCode: {{paramOobCode}}</p>
+</div>
+
+<div *ngIf="!isQueryParamsComplete" style="border: 1px solid red">
+    You are not ready for this condirmation
+</div>-->
+
+<div *ngIf="showPasswordTxtBox && !hideForm">
+    <form [formGroup]="newPswdFormGroup" novalidate (ngSubmit)="ClickAndConfirmPswdReset(newPswdFormGroup.value)">
+
+        <div formGroupName="passwordGroup"
+             [ngClass]="{'has-error': newPswdFormGroup.get('passwordGroup').errors }">
+            <div class="form-group form-group-lg">
+                <input class="form-control" type="password" placeholder="Enter new password" formControlName="password" />
+                <span class="help-block" *ngIf="(newPswdFormGroup.get('passwordGroup.password').touched ||
+                                                            newPswdFormGroup.get('passwordGroup.password').dirty) &&
+                                                            (newPswdFormGroup.get('passwordGroup.password').errors ||
+                                                            newPswdFormGroup.get('passwordGroup').errors) ">
+                    <span class="text-danger" *ngIf="newPswdFormGroup.get('passwordGroup?.password').errors?.required">
+                        Password is needed.
+                    </span>
+                    <span class="text-danger" *ngIf="newPswdFormGroup.get('passwordGroup.password').errors.minlength">
+                        Password should be at least 6 characters
+                    </span>
+                </span>
+            </div>
+
+            <div class="form-group form-group-lg"
+                 [ngClass]="{'has-error': (newPswdFormGroup.get('passwordGroup.confirmPassword').touched ||
+                                                newPswdFormGroup. get('passwordGroup.confirmPassword').dirty) &&
+                                                !newPswdFormGroup.get('passwordGroup.confirmPassword').valid }">
+
+                <input class="form-control" type="password" placeholder="Re-type new Password" formControlName="confirmPassword" />
+                <span class="help-block" *ngIf="(newPswdFormGroup.get('passwordGroup.confirmPassword').touched ||
+                                                            newPswdFormGroup.get('passwordGroup.confirmPassword').dirty) &&
+                                                            (newPswdFormGroup.get('passwordGroup.confirmPassword').errors ||
+                                                            newPswdFormGroup.get('passwordGroup').errors) ">
+                    <span *ngIf="newPswdFormGroup.get('passwordGroup.confirmPassword').errors?.required">
+                        Please confirm your password.
+                    </span>
+                    <span *ngIf="newPswdFormGroup.get('passwordGroup').errors?.match && !newPswdFormGroup.get('passwordGroup.confirmPassword').errors?.required">
+                        The confirmation does not match the password.
+                    </span>
+                </span>
+            </div>
+        </div>
+
+        <div id="feedbacks">
+            <p *ngIf="submittedEmptyValue" class="text-center">
+                <alert type="success" [dismissible]="dismissible">
+                    You are trying to submit an empty value
+                </alert>
+            </p>
+        </div>
+
+        <div class="form-group form-group-lg">
+            <input type="submit" value="Reset Password" class="btn btn-warning btn-block form-control" [disabled]="!newPswdFormGroup.valid" />
+        </div>
+    </form>
+
+</div>
+
+
+<div style="text-align:center;font-size:20px;color:#666;margin-top:40px;">
+    <div *ngIf="hasVerifiedEmail">
+        <p>Email successfully verified.</p>
+        <button [routerLink]="['/signin']" class="btn btn-info">Login</button>
+    </div>
+
+    <div *ngIf="hasUsedLink">
+        Confirmation Link has expired.
+    </div>
+
+    <div *ngIf="stillContactingFirebase">
+        <p>Resetting password...</p>
+    </div>
+
+</div>
+
+
+<p *ngIf="hasResetSuccessfully && hideForm" class="text-center">
+    <alert type="success" [dismissible]="dismissible">
+        Password reset successful
+    </alert>
+    <button [routerLink]="['/signin']" class="btn btn-info">Login</button>
+</p>

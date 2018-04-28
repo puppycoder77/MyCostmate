@@ -1,0 +1,69 @@
+﻿<div style="margin-top:50px;">
+    <div class="col-md-5 col-sm-12" id="phnAndEmails">
+        <div class="phone-nums">
+            <h4 class="contact-h4">PHONE</h4>
+            <p style="font-size:16px;">08116655287</p>
+            <p style="font-size:16px;">08381488214</p>
+        </div>
+        <div class="emails" style="margin-top:50px;margin-bottom:20px;">
+            <h4 class="contact-h4">EMAIL</h4>
+            <p style="font-size:16px;">admin@mycostmate.com</p>
+        </div>
+    </div>
+
+    <div class="col-md-7 col-sm-12 well well-lg" style="height:auto;">
+        <section class="contact-form">
+            <h4>Contact Form</h4>
+            <div>
+                <form  [formGroup]="contactFormGroup" novalidate (ngSubmit)="contactAndNotify(contactFormGroup.value)">
+                    <div class="form-group form-group-lg" [ngClass]="{'has-error': (contactFormGroup.get('senderName').touched ||
+                                                contactFormGroup.get('senderName').dirty) &&
+                                                !contactFormGroup.get('senderName').valid }">
+                        <input type="text" placeholder="Name" class="form-control" formControlName="senderName" />
+                        <span class="text-danger" *ngIf="(contactFormGroup.get('senderName').touched ||
+                                                         contactFormGroup.get('senderName').dirty) &&
+                                                         contactFormGroup.get('senderName').errors">
+                            <span class="text-danger" *ngIf="contactFormGroup.get('senderName').errors.required">
+                                Name is needed.
+                            </span>
+                        </span>
+                    </div>
+
+                    <div class="form-group form-group-lg" [ngClass]="{'has-error': (contactFormGroup.get('senderEmail').touched ||
+                                                contactFormGroup.get('senderEmail').dirty) &&
+                                                !contactFormGroup.get('senderEmail').valid }">
+                        <input type="text" placeholder="Email" class="form-control" formControlName="senderEmail" />
+                        <span class="text-danger" *ngIf="(contactFormGroup.get('senderEmail').touched ||
+                                                         contactFormGroup.get('senderEmail').dirty) &&
+                                                         contactFormGroup.get('senderEmail').errors">
+                            <span *ngIf="contactFormGroup.get('senderEmail').errors.required">
+                                Please enter Email.
+                            </span>
+                            <span *ngIf="contactFormGroup.get('senderEmail').errors.pattern">
+                                Enter a valid Email.
+                            </span>
+                        </span>
+                    </div>
+
+                    <div class="form-group form-group-lg" [ngClass]="{'has-error': (contactFormGroup.get('message').touched ||
+                                                contactFormGroup.get('message').dirty) &&
+                                                !contactFormGroup.get('message').valid }">
+                        <textarea placeholder="Message" class="form-control" rows="5" formControlName="message"></textarea>
+                        <span class="text-danger" *ngIf="(contactFormGroup.get('message').touched ||
+                                                         contactFormGroup.get('message').dirty) &&
+                                                         contactFormGroup.get('message').errors">
+                            <span class="text-danger" *ngIf="contactFormGroup.get('message').errors.required">
+                                Message is needed.
+                            </span>
+                        </span>
+                    </div>
+
+                    <div class="form-group form-group-lg">
+                        <input type="submit" class="btn btn-warning center-block" value="Send message" [disabled]="!contactFormGroup.valid" />
+                    </div>
+                </form>
+            </div>
+
+        </section>
+    </div>
+</div>
