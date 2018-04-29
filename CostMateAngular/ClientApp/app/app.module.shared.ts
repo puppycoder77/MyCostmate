@@ -100,7 +100,6 @@ const ROUTES = [
         AngularFireModule.initializeApp(firebaseConfig),
         AngularFireAuthModule,
         UserModule,
-        OnyeisiModule,
         ModalModule.forRoot(),
         AlertModule.forRoot(),
         CarouselModule.forRoot(),
